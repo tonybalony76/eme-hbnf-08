@@ -79,38 +79,55 @@ jobs:
               report.append(source[max(0, pos - 1200):min(len(source), pos + 9000)])
               report.append("")
 
-          # Haxe's serializer stores strings with a y<length>:<text> marker.
-          # Extract the event class names present in the generated bundle.
-          serialized = sorted(set(re.findall(
-              r'y\\d+:(funkin\\.play\\.event\\.[A-Za-z0-9_.]+)', source
-          )))
-          report.append(f"Serialized SongEvent class-name candidates: {len(serialized)}")
+          # Compare event class names mentioned in the serialized data to
+          # class registrations without fragile regular expressions.
+          marker = "funkin.play.event."
+          names = set()
+          pos = 0
+          while True:
+              pos = source.find(marker, pos)
+              if pos < 0:
+                  break
+              end_name = pos
+              while end_name < len(source) and (source[end_name].isalnum() or source[end_name] in "._"):
+                  end_name += 1
+              name = source[pos:end_name].rstrip(".")
+              if name and name != "funkin.play.event":
+                  names.add(name)
+              pos = end_name + 1
 
-          # Compiled Haxe classes are registered in $hxClasses under their
-          # fully-qualified Haxe name. Compare metadata names to registrations.
-          registered = set(re.findall(
-              r'\\$hxClasses\\["([^"]+)"\\]\\s*=', source
-          ))
-          report.append(f"Registered Haxe class names: {len(registered)}")
-          missing = [name for name in serialized if name not in registered]
-          report.append(f"Serialized event names without a $hxClasses registration: {len(missing)}")
-          for name in missing:
-              report.append(f"MISSING: {name}")
+          report.append(f"Event class names mentioned: {len(names)}")
+          for name in sorted(names):
+              registered = ('$hxClasses["' + name + '"]') in source
+              report.append(("REGISTERED: " if registered else "NOT REGISTERED: ") + name)
 
-          # Also show every event class name mentioned, for diagnosis if the
-          # resource uses a serializer representation other than y<length>:.
-          mentioned = sorted(set(re.findall(
-              r'funkin\\.play\\.event\\.[A-Za-z0-9_]+', source
-          )))
+          # Show contexts around runtime URL and renderer initialization code.
+          terms = [
+              "document.currentScript", "document.scripts", "document.baseURI",
+              "location.href", "location.pathname", "new URL(", "lime.embed",
+              "WebGL", "webgl", "assets/", "Funkin.js", "XMLHttpRequest"
+          ]
           report.append("")
-          report.append(f"All mentioned funkin.play.event names: {len(mentioned)}")
-          for name in mentioned:
-              report.append(("REGISTERED: " if name in registered else "NOT REGISTERED: ") + name)
+          report.append("Runtime URL/renderer code references:")
+          for term in terms:
+              positions = []
+              start_at = 0
+              while True:
+                  found = source.find(term, start_at)
+                  if found < 0:
+                      break
+                  positions.append(found)
+                  start_at = found + len(term)
+              report.append(f"{term}: {len(positions)} occurrence(s)")
+              for i, found in enumerate(positions[:4], 1):
+                  report.append(f"--- {term} occurrence {i} @ {found} ---")
+                  report.append(source[max(0, found - 350):min(len(source), found + 650)])
+                  report.append("")
 
           Path("FNF-REGISTRY-DIAGNOSTIC.txt").write_text(
-              "\\n".join(report), encoding="utf-8"
+              "\n".join(report), encoding="utf-8"
           )
-          print("\\n".join(report[:30]))
+          print("\n".join(report[:40]))
           PY
 
       - name: Save diagnostic report on this branch
