@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'FNF-Missing-Files.zip'
+      - 'FNF-Missing-Files-Part-*.zip'
       - '.github/workflows/restore-remaining-files.yml'
   workflow_dispatch:
 
@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Extract missing files into their original folders
+      - name: Extract all missing-file ZIP parts
         run: |
           python3 - <<'PY'
           from pathlib import Path
@@ -25,35 +25,38 @@ jobs:
           import hashlib
 
           root = Path(".").resolve()
-          archive = root / "FNF-Missing-Files.zip"
-          if not archive.exists():
-              raise SystemExit("FNF-Missing-Files.zip was not found.")
+          archives = sorted(root.glob("FNF-Missing-Files-Part-*.zip"))
+          if not archives:
+              raise SystemExit("No FNF-Missing-Files-Part-*.zip files found.")
 
           restored = 0
           already = 0
-          with ZipFile(archive) as z:
-              for item in z.infolist():
-                  if item.is_dir():
-                      continue
-                  rel = Path(item.filename)
-                  if rel.is_absolute() or ".." in rel.parts:
-                      raise SystemExit(f"Unsafe archive path: {item.filename}")
-                  dest = (root / rel).resolve()
-                  if root not in dest.parents:
-                      raise SystemExit(f"Unsafe destination: {item.filename}")
-                  data = z.read(item)
-                  if dest.exists():
-                      if hashlib.sha256(dest.read_bytes()).digest() != hashlib.sha256(data).digest():
-                          raise SystemExit(f"Conflict: {item.filename} already exists with different content.")
-                      already += 1
-                      continue
-                  dest.parent.mkdir(parents=True, exist_ok=True)
-                  dest.write_bytes(data)
-                  restored += 1
+          for archive in archives:
+              print(f"Extracting {archive.name}")
+              with ZipFile(archive) as z:
+                  for item in z.infolist():
+                      if item.is_dir():
+                          continue
+                      rel = Path(item.filename)
+                      if rel.is_absolute() or ".." in rel.parts:
+                          raise SystemExit(f"Unsafe archive path: {item.filename}")
+                      dest = (root / rel).resolve()
+                      if root not in dest.parents:
+                          raise SystemExit(f"Unsafe destination: {item.filename}")
+                      data = z.read(item)
+                      if dest.exists():
+                          if hashlib.sha256(dest.read_bytes()).digest() != hashlib.sha256(data).digest():
+                              raise SystemExit(f"Conflict: {item.filename} already exists with different content.")
+                          already += 1
+                          continue
+                      dest.parent.mkdir(parents=True, exist_ok=True)
+                      dest.write_bytes(data)
+                      restored += 1
+              archive.unlink()
 
-          archive.unlink()
           print(f"Restored: {restored}")
           print(f"Already present identically: {already}")
+          print(f"ZIP parts processed: {len(archives)}")
           PY
 
       - name: Commit restored files
