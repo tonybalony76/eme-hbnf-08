@@ -1,0 +1,82 @@
+name: Diagnose FNF compiled event registry
+
+on:
+  push:
+    paths:
+      - .github/workflows/diagnose-event-registry.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out package
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Inspect compiled JavaScript
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path("Funkin.js")
+          if not path.is_file():
+              raise SystemExit("Funkin.js is missing from this branch")
+
+          source = path.read_text(encoding="utf-8")
+          terms = [
+              "eventCls.__name__",
+              "registerBaseEvents",
+              "SongEventRegistry",
+              "Class lists not properly generated",
+              "Type.resolveClass",
+              "BUILTIN_EVENTS",
+          ]
+
+          lines = source.splitlines()
+          report = [
+              "FNF compiled registry diagnostic",
+              f"File: {path}",
+              f"Bytes: {path.stat().st_size}",
+              f"Lines: {len(lines)}",
+              "",
+          ]
+
+          for term in terms:
+              positions = []
+              start = 0
+              while True:
+                  found = source.find(term, start)
+                  if found < 0:
+                      break
+                  positions.append(found)
+                  start = found + len(term)
+              report.append(f"{term}: {len(positions)} occurrence(s)")
+              for number, pos in enumerate(positions[:12], 1):
+                  before = max(0, pos - 700)
+                  after = min(len(source), pos + 1100)
+                  fragment = source[before:after]
+                  report.append(f"--- {term} occurrence {number}, offset {pos} ---")
+                  report.append(fragment)
+                  report.append("")
+              report.append("")
+
+          Path("FNF-REGISTRY-DIAGNOSTIC.txt").write_text(
+              "\n".join(report), encoding="utf-8"
+          )
+          print("\n".join(report[:15]))
+          PY
+
+      - name: Save diagnostic report on this branch
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add FNF-REGISTRY-DIAGNOSTIC.txt
+          git commit -m "Add compiled FNF registry diagnostic"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
