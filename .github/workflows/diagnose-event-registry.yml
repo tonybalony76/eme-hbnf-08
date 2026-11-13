@@ -18,58 +18,76 @@ jobs:
         with:
           ref: ${{ github.ref_name }}
 
-      - name: Inspect compiled JavaScript
+      - name: Inspect compiled JavaScript and class-list metadata
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
+          import re
 
           path = Path("Funkin.js")
           if not path.is_file():
               raise SystemExit("Funkin.js is missing from this branch")
 
           source = path.read_text(encoding="utf-8")
-          terms = [
-              "eventCls.__name__",
-              "registerBaseEvents",
-              "SongEventRegistry",
-              "Class lists not properly generated",
-              "Type.resolveClass",
-              "BUILTIN_EVENTS",
-          ]
-
-          lines = source.splitlines()
           report = [
-              "FNF compiled registry diagnostic",
+              "FNF compiled event-registry analysis",
               f"File: {path}",
               f"Bytes: {path.stat().st_size}",
-              f"Lines: {len(lines)}",
+              f"Lines: {len(source.splitlines())}",
               "",
           ]
 
-          for term in terms:
-              positions = []
-              start = 0
-              while True:
-                  found = source.find(term, start)
-                  if found < 0:
-                      break
-                  positions.append(found)
-                  start = found + len(term)
-              report.append(f"{term}: {len(positions)} occurrence(s)")
-              for number, pos in enumerate(positions[:12], 1):
-                  before = max(0, pos - 700)
-                  after = min(len(source), pos + 1100)
-                  fragment = source[before:after]
-                  report.append(f"--- {term} occurrence {number}, offset {pos} ---")
-                  report.append(fragment)
-                  report.append("")
+          # The serialized class-list resource is read at runtime. Show where
+          # the resource is stored as well as the code that requests it.
+          key = "Funkin_CompiledClassList"
+          positions = []
+          start = 0
+          while True:
+              pos = source.find(key, start)
+              if pos < 0:
+                  break
+              positions.append(pos)
+              start = pos + len(key)
+
+          report.append(f"Resource-name occurrences: {len(positions)}")
+          for i, pos in enumerate(positions, 1):
+              report.append(f"--- resource occurrence {i}, offset {pos} ---")
+              report.append(source[max(0, pos - 1200):min(len(source), pos + 9000)])
               report.append("")
 
+          # Haxe's serializer stores strings with a y<length>:<text> marker.
+          # Extract the event class names present in the generated bundle.
+          serialized = sorted(set(re.findall(
+              r'y\\d+:(funkin\\.play\\.event\\.[A-Za-z0-9_.]+)', source
+          )))
+          report.append(f"Serialized SongEvent class-name candidates: {len(serialized)}")
+
+          # Compiled Haxe classes are registered in $hxClasses under their
+          # fully-qualified Haxe name. Compare metadata names to registrations.
+          registered = set(re.findall(
+              r'\\$hxClasses\\["([^"]+)"\\]\\s*=', source
+          ))
+          report.append(f"Registered Haxe class names: {len(registered)}")
+          missing = [name for name in serialized if name not in registered]
+          report.append(f"Serialized event names without a $hxClasses registration: {len(missing)}")
+          for name in missing:
+              report.append(f"MISSING: {name}")
+
+          # Also show every event class name mentioned, for diagnosis if the
+          # resource uses a serializer representation other than y<length>:.
+          mentioned = sorted(set(re.findall(
+              r'funkin\\.play\\.event\\.[A-Za-z0-9_]+', source
+          )))
+          report.append("")
+          report.append(f"All mentioned funkin.play.event names: {len(mentioned)}")
+          for name in mentioned:
+              report.append(("REGISTERED: " if name in registered else "NOT REGISTERED: ") + name)
+
           Path("FNF-REGISTRY-DIAGNOSTIC.txt").write_text(
-              "\n".join(report), encoding="utf-8"
+              "\\n".join(report), encoding="utf-8"
           )
-          print("\n".join(report[:15]))
+          print("\\n".join(report[:30]))
           PY
 
       - name: Save diagnostic report on this branch
@@ -78,5 +96,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add FNF-REGISTRY-DIAGNOSTIC.txt
-          git commit -m "Add compiled FNF registry diagnostic"
+          git commit -m "Analyze missing FNF event registry classes"
           git push origin "HEAD:${GITHUB_REF_NAME}"
