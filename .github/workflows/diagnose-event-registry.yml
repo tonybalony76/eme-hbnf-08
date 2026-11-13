@@ -38,6 +38,29 @@ jobs:
               "",
           ]
 
+          # Inspect path/base-URL selection in the generated Lime/OpenFL bundle.
+          terms = [
+              "document.currentScript", "document.scripts", "document.location",
+              "window.location", "location.href", "location.pathname",
+              "document.baseURI", "baseURI", "getElementsByTagName(\"script\")",
+              "XMLHttpRequest", "assets/", "Funkin.js", "lime.embed",
+              "window.fetch", "new URL("
+          ]
+          for term in terms:
+              positions = []
+              start = 0
+              while True:
+                  pos = source.find(term, start)
+                  if pos < 0:
+                      break
+                  positions.append(pos)
+                  start = pos + len(term)
+              report.append(f"{term}: {len(positions)} occurrence(s)")
+              for i, pos in enumerate(positions[:8], 1):
+                  report.append(f"--- {term} occurrence {i} @ {pos} ---")
+                  report.append(source[max(0, pos - 350):min(len(source), pos + 550)])
+                  report.append("")
+
           # The serialized class-list resource is read at runtime. Show where
           # the resource is stored as well as the code that requests it.
           key = "Funkin_CompiledClassList"
