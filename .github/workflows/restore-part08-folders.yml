@@ -29,8 +29,7 @@ jobs:
 
           with ZipFile(archive) as z:
               names = [n for n in z.namelist() if not n.endswith("/")]
-              prefixes = ("FNF-Part-08/",)
-              prefix = next((p for p in prefixes if names and all(n.startswith(p) for n in names)), "")
+              prefix = "FNF-Part-08/" if names and all(n.startswith("FNF-Part-08/") for n in names) else ""
               for name in names:
                   relative = name[len(prefix):]
                   target = (root / relative).resolve()
@@ -40,14 +39,23 @@ jobs:
                   with z.open(name) as source, target.open("wb") as dest:
                       dest.write(source.read())
 
-          print(f"Restored {len(names)} files; wrapper folder: {prefix or '(none)'}")
+          print(f"ZIP entries: {len(names)}")
+          for name in names:
+              print(name)
           PY
 
       - name: Commit restored folders
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add -A -- assets manifest
-          git diff --cached --quiet && exit 0
+          for directory in assets manifest; do
+            if [ -d "$directory" ]; then
+              git add -A -- "$directory"
+            fi
+          done
+          if git diff --cached --quiet; then
+            echo "No restored file changes to commit."
+            exit 0
+          fi
           git commit -m "Restore Part 08 files with original folders"
           git push
