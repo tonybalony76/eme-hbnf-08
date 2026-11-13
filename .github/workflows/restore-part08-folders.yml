@@ -15,47 +15,50 @@ jobs:
   restore:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Extract files with original folders
+      - name: Extract and normalize Part 08 files
         run: |
           python - <<'PY'
           from pathlib import Path
           from zipfile import ZipFile
+          from io import BytesIO
 
-          archive = Path("FNF-Part-08-Missing-Files.zip.zip")
           root = Path(".").resolve()
-
-          with ZipFile(archive) as z:
-              names = [n for n in z.namelist() if not n.endswith("/")]
-              prefix = "FNF-Part-08/" if names and all(n.startswith("FNF-Part-08/") for n in names) else ""
+          with ZipFile("FNF-Part-08-Missing-Files.zip.zip") as outer:
+              names = [n for n in outer.namelist() if not n.endswith("/")]
               for name in names:
-                  relative = name[len(prefix):]
-                  target = (root / relative).resolve()
-                  if not relative or root not in target.parents:
-                      raise SystemExit(f"Unsafe archive path: {name}")
-                  target.parent.mkdir(parents=True, exist_ok=True)
-                  with z.open(name) as source, target.open("wb") as dest:
-                      dest.write(source.read())
+                  if name.endswith("cursor-files.zip.zip"):
+                      with ZipFile(BytesIO(outer.read(name))) as inner:
+                          for item in inner.namelist():
+                              if item.endswith("/"):
+                                  continue
+                              dest = root / "assets/images/cursor" / Path(item).name
+                              dest.parent.mkdir(parents=True, exist_ok=True)
+                              dest.write_bytes(inner.read(item))
+                      continue
 
-          print(f"ZIP entries: {len(names)}")
-          for name in names:
-              print(name)
+                  relative = name
+                  if relative.startswith("FNF-Part-08/"):
+                      relative = relative[len("FNF-Part-08/"):]
+                  if relative.startswith("assets/images/pauseAlt/"):
+                      relative = relative.replace("assets/images/pauseAlt/", "assets/shared/images/pauseAlt/", 1)
+                  if relative.startswith("assets/manifest/"):
+                      relative = relative[len("assets/"):]
+                  dest = (root / relative).resolve()
+                  if root not in dest.parents:
+                      raise SystemExit(f"Unsafe path: {name}")
+                  dest.parent.mkdir(parents=True, exist_ok=True)
+                  dest.write_bytes(outer.read(name))
+
+          print("Extracted and normalized Part 08 files.")
           PY
 
-      - name: Commit restored folders
+      - name: Commit restored files
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          for directory in assets manifest; do
-            if [ -d "$directory" ]; then
-              git add -A -- "$directory"
-            fi
-          done
-          if git diff --cached --quiet; then
-            echo "No restored file changes to commit."
-            exit 0
-          fi
-          git commit -m "Restore Part 08 files with original folders"
+          git add -A -- assets manifest
+          git diff --cached --quiet && exit 0
+          git commit -m "Restore Part 08 missing files"
           git push
