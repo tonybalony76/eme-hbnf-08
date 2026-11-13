@@ -38,6 +38,106 @@ jobs:
               "",
           ]
 
+          # Extract and fully decode the Haxe class-list resource. The previous
+          # report excerpt cut this long base64 value off mid-string.
+          resource = re.search(
+              r'\{\s*name\s*:\s*"Funkin_CompiledClassList",\s*data\s*:\s*"([^"]+)"',
+              source
+          )
+          if resource:
+              import base64
+              encoded = resource.group(1)
+              decoded = base64.b64decode(encoded).decode("utf-8", errors="replace")
+              report.append(f"CompiledClassList base64 bytes: {len(encoded)}")
+              report.append(f"CompiledClassList decoded chars: {len(decoded)}")
+
+              pos = 0
+              def unserialize():
+                  nonlocal_pos = None
+                  global_pos = None
+                  nonlocal_dummy = None
+                  global_dummy = None
+                  nonlocal pos
+                  if pos >= len(decoded):
+                      raise ValueError("unexpected end of class-list resource")
+                  code = decoded[pos]
+                  pos += 1
+                  if code == "a":
+                      items = []
+                      while pos < len(decoded) and decoded[pos] != "h":
+                          items.append(unserialize())
+                      if pos >= len(decoded):
+                          raise ValueError("unterminated array")
+                      pos += 1
+                      return items
+                  if code == "y":
+                      end = decoded.index(":", pos)
+                      length = int(decoded[pos:end])
+                      pos = end + 1
+                      value = decoded[pos:pos + length]
+                      if len(value) != length:
+                          raise ValueError("truncated string value")
+                      pos += length
+                      return value
+                  if code == "n":
+                      return None
+                  if code == "t":
+                      return True
+                  if code == "f":
+                      return False
+                  if code == "i":
+                      end = pos
+                      while end < len(decoded) and decoded[end] in "-0123456789":
+                          end += 1
+                      value = int(decoded[pos:end])
+                      pos = end
+                      return value
+                  raise ValueError(f"unsupported Haxe serialization code {code!r} at {pos - 1}")
+
+              try:
+                  metadata = unserialize()
+                  rows = metadata if isinstance(metadata, list) else []
+                  registered = set(re.findall(
+                      r'\$hxClasses\["([^"]+)"\]\s*=', source
+                  ))
+                  report.append(f"Parsed metadata rows: {len(rows)}")
+                  event_rows = [
+                      row for row in rows
+                      if isinstance(row, list) and row
+                      and isinstance(row[0], str)
+                      and ("SongEvent" in row[0] or "funkin.play.event" in row[0])
+                  ]
+                  report.append(f"SongEvent-related metadata rows: {len(event_rows)}")
+                  for row in event_rows:
+                      classes = [x for x in row[1:] if isinstance(x, str)]
+                      missing = [name for name in classes if name not in registered]
+                      report.append(f"ROW: {row[0]}")
+                      report.append(f"  class count: {len(classes)}")
+                      report.append(f"  unregistered classes: {missing}")
+                  report.append(f"Class-list parser stopped at: {pos}/{len(decoded)}")
+                  report.append(f"Remaining decoded chars: {decoded[pos:pos + 100]!r}")
+              except Exception as error:
+                  report.append(f"Class-list parse error: {type(error).__name__}: {error}")
+                  report.append(f"Parser position: {pos}/{len(decoded)}")
+          else:
+              report.append("ERROR: CompiledClassList resource not found in Funkin.js")
+
+          # The startup code checks WebGL/OpenGL explicitly before creating the
+          # game. Preserve that branch in the diagnostic report.
+          webgl_at = source.find('Failed to initialize " + "WebGL')
+          if webgl_at >= 0:
+              report.append("")
+              report.append("WebGL startup branch:")
+              report.append(source[max(0, webgl_at - 700):webgl_at + 700])
+
+          report.append("")
+              "FNF compiled event-registry analysis",
+              f"File: {path}",
+              f"Bytes: {path.stat().st_size}",
+              f"Lines: {len(source.splitlines())}",
+              "",
+          ]
+
           # Inspect path/base-URL selection in the generated Lime/OpenFL bundle.
           terms = [
               "document.currentScript", "document.scripts", "document.location",
