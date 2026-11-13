@@ -1,0 +1,53 @@
+name: Restore Part 08 folders
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'FNF-Part-08-Missing-Files.zip.zip'
+      - '.github/workflows/restore-part08-folders.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Extract files with original folders
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          from zipfile import BadZipFile
+
+          archive = Path("FNF-Part-08-Missing-Files.zip.zip")
+          if not archive.is_file():
+              raise SystemExit(f"Archive not found: {archive}")
+
+          root = Path(".").resolve()
+          with ZipFile(archive) as z:
+              for info in z.infolist():
+                  target = (root / info.filename).resolve()
+                  if target != root and root not in target.parents:
+                      raise SystemExit(f"Unsafe archive path: {info.filename}")
+              z.extractall(root)
+
+          print("Extracted archive while preserving folder structure.")
+          PY
+
+      - name: Commit restored folders
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add assets flixel manifest
+          if git diff --cached --quiet; then
+            echo "No extracted file changes to commit."
+          else
+            git commit -m "Restore Part 08 files with original folders"
+            git push
+          fi
