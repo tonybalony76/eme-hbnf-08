@@ -1,688 +1,916 @@
-FNF compiled registry diagnostic
+FNF compiled event-registry analysis
 File: Funkin.js
 Bytes: 10442300
 Lines: 267115
 
-eventCls.__name__: 2 occurrence(s)
---- eventCls.__name__ occurrence 1, offset 2538886 ---
-gistry.clearEventCache();
-	funkin_data_event_SongEventRegistry.registerBaseEvents();
-	funkin_data_event_SongEventRegistry.registerScriptedEvents();
-};
-funkin_data_event_SongEventRegistry.registerBaseEvents = function() {
-	haxe_Log.trace("Instantiating " + funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.length + " built-in song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 43, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
-		}
-		var event = Type.createInstance(eventCls,["UNKNOWN"]);
-		if(event != null) {
-			haxe_Log.trace(" Loaded built-in song event: " + event.id,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 53, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-			funkin_data_event_SongEventRegistry.eventCache.h[event.id] = event;
-		} else {
-			haxe_Log.trace(" Failed to load built-in song event: " + eventCls.__name__,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 58, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-		}
+document.currentScript: 0 occurrence(s)
+document.scripts: 0 occurrence(s)
+document.location: 2 occurrence(s)
+--- document.location occurrence 1 @ 7503410 ---
+back;
+		var _this = function(outcome) {
+			_g.checkInitialSession(callback1,outcome);
+		};
+		this.calls.app.checkSession().addOutcomeHandler(_this).sendHelper();
 	}
 };
-funkin_data_event_SongEventRegistry.registerScriptedEvents = function() {
-	var scriptedEventClassNames = funkin_play_event_ScriptedSongEvent.listScriptClasses();
-	haxe_Log.trace("Instantiating " + scriptedEventClassNames.length + " scripted song events...",{ fileName : "source/funkin/data/event/SongEventRegi
+$hxClasses["io.newgrounds.NGLite"] = io_newgrounds_NGLite;
+io_newgrounds_NGLite.__name__ = "io.newgrounds.NGLite";
+io_newgrounds_NGLite.getSessionId = function() {
+	var url = window.document.location.href;
+	var index = url.indexOf("?");
+	if(index != -1) {
+		var _g = 0;
+		var _g1 = HxOverrides.substr(url,index + 1,null).split("&");
+		while(_g < _g1.length) {
+			var param = _g1[_g];
+			++_g;
+			index = param.indexOf("=");
+			if(index != -1 && HxOverrides.substr(param,0,index) == "ngio_session_id") {
+				return HxOverrides.substr(param,index + 1,null);
+			}
+		}
+	}
+	return null;
+};
+io_newgrounds_NGLite.prototype = {
+	markCallPending_io_newgrounds_Call_T: function(call) {
+		var _gthis = this;
+		this._pendingCalls.push(call);
+		
 
---- eventCls.__name__ occurrence 2, offset 2539482 ---
- null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
-		}
-		var event = Type.createInstance(eventCls,["UNKNOWN"]);
-		if(event != null) {
-			haxe_Log.trace(" Loaded built-in song event: " + event.id,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 53, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-			funkin_data_event_SongEventRegistry.eventCache.h[event.id] = event;
-		} else {
-			haxe_Log.trace(" Failed to load built-in song event: " + eventCls.__name__,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 58, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-		}
+--- document.location occurrence 2 @ 7506952 ---
+NG.core = null;
+io_newgrounds_NG.create = function(appId,sessionId,debug,callback) {
+	if(debug == null) {
+		debug = false;
 	}
+	if(appId == null) {
+		appId = "test";
+	}
+	io_newgrounds_NG.core = new io_newgrounds_NG(appId,sessionId,debug,callback);
+	io_newgrounds_NG.onCoreReady.dispatch();
 };
-funkin_data_event_SongEventRegistry.registerScriptedEvents = function() {
-	var scriptedEventClassNames = funkin_play_event_ScriptedSongEvent.listScriptClasses();
-	haxe_Log.trace("Instantiating " + scriptedEventClassNames.length + " scripted song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 66, className : "funkin.data.event.SongEventRegistry", methodName : "registerScriptedEvents"});
-	if(scriptedEventClassNames == null || scriptedEventClassNames.length == 0) {
-		return;
+io_newgrounds_NG.getHost = function() {
+	var url = window.document.location.href;
+	if(url == null || url == "") {
+		return "AppView";
 	}
-	var _g = 0;
-	while(_g < scriptedEventClassNames.length) {
-		var eventCls = scriptedEventClassNames[_g];
-		++_g;
-		var event = funkin_play_event_ScriptedSongEvent.scriptInit(eventCls,"UKNOWN");
-		if(event != null) {
-			haxe_Log.trace(" Loaded scripted song event: " + event.id,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 75, className : "funkin.data.event
-
-
-registerBaseEvents: 5 occurrence(s)
---- registerBaseEvents occurrence 1, offset 2538249 ---
-kin_util_AnsiUtil.codesSupported = false;
+	if(url.indexOf("file") == 0 || url.indexOf("127.0.0.1") != -1) {
+		return "LocalHost";
 	}
-	return funkin_util_AnsiUtil.codesSupported == true;
+	if(io_newgrounds_NG.urlParser.match(url)) {
+		return io_newgrounds_NG.urlParser.matched(1);
+	}
+	return "Unknown";
 };
-funkin_util_AnsiUtil.stripCodes = function(output) {
-	if(funkin_util_AnsiUtil.isColorCodesSupported()) {
-		return output;
+io_newgrounds_NG.__super__ = io_newgrounds_NGLite;
+io_newgrounds_NG.prototype = $extend(io_newgrounds_NGLite.prototype,{
+	get_user: function() {
+		if(this._session == null) {
+			return null;
+		}
+		return this._session.user;
+	}
+	,get_passportUrl: function() {
+		i
+
+window.location: 5 occurrence(s)
+--- window.location occurrence 1 @ 2202424 ---
+owser.getLocalStorage();
+	if(storage == null) {
+		return null;
+	}
+	var get = function(path) {
+		return storage.getItem(path + ":" + name);
+	};
+	if(localPath != "") {
+		return get(localPath);
+	}
+	var encodedData = get(flixel_util__$FlxSave_FlxSharedObject.getDefaultLocalPath());
+	if(encodedData != null) {
+		return encodedData;
+	}
+	encodedData = get(window.location.pathname);
+	if(encodedData != null) {
+		return encodedData;
+	}
+	return get(window.location.href);
+};
+flixel_util__$FlxSave_FlxSharedObject.__super__ = openfl_net_SharedObject;
+flixel_util__$FlxSave_FlxSharedObject.prototype = $extend(openfl_net_SharedObject.prototype,{
+	__class__: flixel_util__$FlxSave_FlxSharedObject
+});
+var flixel_util_LoadResult = $hxEnums["flixel.util.LoadResult"] = { __ename__:"flixel.util.LoadResult",__constructs__:null
+	,SUCCESS: ($_=function(obj) { return {_hx_index:0,obj:obj,__enum__:"flixel.util.LoadRe
+
+--- window.location occurrence 2 @ 2202515 ---
+ {
+		return storage.getItem(path + ":" + name);
+	};
+	if(localPath != "") {
+		return get(localPath);
+	}
+	var encodedData = get(flixel_util__$FlxSave_FlxSharedObject.getDefaultLocalPath());
+	if(encodedData != null) {
+		return encodedData;
+	}
+	encodedData = get(window.location.pathname);
+	if(encodedData != null) {
+		return encodedData;
+	}
+	return get(window.location.href);
+};
+flixel_util__$FlxSave_FlxSharedObject.__super__ = openfl_net_SharedObject;
+flixel_util__$FlxSave_FlxSharedObject.prototype = $extend(openfl_net_SharedObject.prototype,{
+	__class__: flixel_util__$FlxSave_FlxSharedObject
+});
+var flixel_util_LoadResult = $hxEnums["flixel.util.LoadResult"] = { __ename__:"flixel.util.LoadResult",__constructs__:null
+	,SUCCESS: ($_=function(obj) { return {_hx_index:0,obj:obj,__enum__:"flixel.util.LoadResult",toString:$estr}; },$_._hx_name="SUCCESS",$_.__params__ = ["obj"],$_)
+	,FAILURE: ($_=f
+
+--- window.location occurrence 3 @ 7555514 ---
+rror));
+			break;
+		}
+	}
+	,__class__: io_newgrounds_utils__$ScoreBoardList_RawScoreBoardList
+});
+var js_Browser = function() { };
+$hxClasses["js.Browser"] = js_Browser;
+js_Browser.__name__ = "js.Browser";
+js_Browser.__properties__ = {get_supported:"get_supported"};
+js_Browser.get_supported = function() {
+	if(typeof(window) != "undefined" && typeof(window.location) != "undefined") {
+		return typeof(window.location.protocol) == "string";
 	} else {
-		return output.replace(funkin_util_AnsiUtil.REGEX_ANSI_CODES.r,"");
+		return false;
 	}
 };
-var funkin_data_event_SongEventRegistry = function() { };
-$hxClasses["funkin.data.event.SongEventRegistry"] = funkin_data_event_SongEventRegistry;
-funkin_data_event_SongEventRegistry.__name__ = "funkin.data.event.SongEventRegistry";
-funkin_data_event_SongEventRegistry.loadEventCache = function() {
-	funkin_data_event_SongEventRegistry.clearEventCache();
-	funkin_data_event_SongEventRegistry.registerBaseEvents();
-	funkin_data_event_SongEventRegistry.registerScriptedEvents();
-};
-funkin_data_event_SongEventRegistry.registerBaseEvents = function() {
-	haxe_Log.trace("Instantiating " + funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.length + " built-in song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 43, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
+js_Browser.getLocalStorage = function() {
+	try {
+		var s = window.localStorage;
+		s.getItem("");
+		if(s.length == 0) {
+			var key = "_hx_" + Math.random();
+			s.setItem(key,key);
+			s.removeItem(key);
 		}
-		var event = Type.createInstance(eventCls,["UNKNOWN"]);
-		if(event != null) {
-			haxe_Log.trace(" Loaded built-in song event: " + event.id,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 53, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-			funkin
+		return s;
+	} catch( _g ) {
+		haxe_NativeStackTrace.lastError = _g;
+		return null;
+	}
+};
+var js_lib__$ArrayBuffer_ArrayBufferCompat = function() { };
+$hxClasses["js.lib._ArrayBuffer.ArrayBufferCompat"] = js_lib__$ArrayBuff
 
---- registerBaseEvents occurrence 2, offset 2538373 ---
-ripCodes = function(output) {
-	if(funkin_util_AnsiUtil.isColorCodesSupported()) {
-		return output;
+--- window.location occurrence 4 @ 7555565 ---
+_utils__$ScoreBoardList_RawScoreBoardList
+});
+var js_Browser = function() { };
+$hxClasses["js.Browser"] = js_Browser;
+js_Browser.__name__ = "js.Browser";
+js_Browser.__properties__ = {get_supported:"get_supported"};
+js_Browser.get_supported = function() {
+	if(typeof(window) != "undefined" && typeof(window.location) != "undefined") {
+		return typeof(window.location.protocol) == "string";
 	} else {
-		return output.replace(funkin_util_AnsiUtil.REGEX_ANSI_CODES.r,"");
+		return false;
 	}
 };
-var funkin_data_event_SongEventRegistry = function() { };
-$hxClasses["funkin.data.event.SongEventRegistry"] = funkin_data_event_SongEventRegistry;
-funkin_data_event_SongEventRegistry.__name__ = "funkin.data.event.SongEventRegistry";
-funkin_data_event_SongEventRegistry.loadEventCache = function() {
-	funkin_data_event_SongEventRegistry.clearEventCache();
-	funkin_data_event_SongEventRegistry.registerBaseEvents();
-	funkin_data_event_SongEventRegistry.registerScriptedEvents();
-};
-funkin_data_event_SongEventRegistry.registerBaseEvents = function() {
-	haxe_Log.trace("Instantiating " + funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.length + " built-in song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 43, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
+js_Browser.getLocalStorage = function() {
+	try {
+		var s = window.localStorage;
+		s.getItem("");
+		if(s.length == 0) {
+			var key = "_hx_" + Math.random();
+			s.setItem(key,key);
+			s.removeItem(key);
 		}
-		var event = Type.createInstance(eventCls,["UNKNOWN"]);
-		if(event != null) {
-			haxe_Log.trace(" Loaded built-in song event: " + event.id,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 53, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-			funkin_data_event_SongEventRegistry.eventCache.h[event.id] = event;
-		} else {
-			haxe_Log.trace(" Failed to load built-in song ev
+		return s;
+	} catch( _g ) {
+		haxe_NativeStackTrace.lastError = _g;
+		return null;
+	}
+};
+var js_lib__$ArrayBuffer_ArrayBufferCompat = function() { };
+$hxClasses["js.lib._ArrayBuffer.ArrayBufferCompat"] = js_lib__$ArrayBuffer_ArrayBufferCompat;
+js_lib__$ArrayBuffer_ArrayBuf
 
---- registerBaseEvents occurrence 3, offset 2538673 ---
-_data_event_SongEventRegistry;
-funkin_data_event_SongEventRegistry.__name__ = "funkin.data.event.SongEventRegistry";
-funkin_data_event_SongEventRegistry.loadEventCache = function() {
-	funkin_data_event_SongEventRegistry.clearEventCache();
-	funkin_data_event_SongEventRegistry.registerBaseEvents();
-	funkin_data_event_SongEventRegistry.registerScriptedEvents();
-};
-funkin_data_event_SongEventRegistry.registerBaseEvents = function() {
-	haxe_Log.trace("Instantiating " + funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.length + " built-in song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 43, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
-		}
-		var event = Type.createInstance(eventCls,["UNKNOWN"]);
-		if(event != null) {
-			haxe_Log.trace(" Loaded built-in song event: " + event.id,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 53, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-			funkin_data_event_SongEventRegistry.eventCache.h[event.id] = event;
-		} else {
-			haxe_Log.trace(" Failed to load built-in song event: " + eventCls.__name__,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 58, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-		}
-	}
-};
-funkin_data_event_SongEventRegistry.registerScriptedEvents = function() {
-	var scriptedEventClas
+--- window.location occurrence 5 @ 10285938 ---
+    break;
+        }
+      }
 
---- registerBaseEvents occurrence 4, offset 2539317 ---
- : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
+      if (!url) {
+        self._emit('loaderror', null, 'No codec support for selected audio sources.');
+        return;
+      }
+
+      self._src = url;
+      self._state = 'loading';
+
+      // If the hosting page is HTTPS and the source isn't,
+      // drop down to HTML5 Audio to avoid Mixed Content errors.
+      if (window.location.protocol === 'https:' && url.slice(0, 5) === 'http:') {
+        self._html5 = true;
+        self._webAudio = false;
+      }
+
+      // Create a new sound object and add it to the pool.
+      new Sound(self);
+
+      // Load and decode the audio data for playback.
+      if (self._webAudio) {
+        loadBuffer(self);
+      }
+
+      return self;
+    },
+
+    /**
+     * Play a sound or resume previous playback.
+     * @param  {String/Number} sprite   Sprite name for sprite playback or sound id to continue previous.
+     * @param  {Boo
+
+location.href: 8 occurrence(s)
+--- location.href occurrence 1 @ 1756337 ---
+xt.get_height() + hyperlinkText.get_height());
+		sprite.addChild(titleText);
+		sprite.addChild(bodyText);
+		sprite.addChild(hyperlinkText);
+		return sprite;
+	}
+	,adjustSiteLockTextFields: function(titleText,bodyText,hyperlinkText) {
+	}
+	,isHostUrlAllowed: function() {
+		if(this.allowedURLs.length == 0) {
+			return true;
 		}
-		var event = Type.createInstance(eventCls,["UNKNOWN"]);
-		if(event != null) {
-			haxe_Log.trace(" Loaded built-in song event: " + event.id,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 53, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-			funkin_data_event_SongEventRegistry.eventCache.h[event.id] = event;
-		} else {
-			haxe_Log.trace(" Failed to load built-in song event: " + eventCls.__name__,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 58, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
+		var homeURL = $global.location.href;
+		var homeDomain = flixel_util_FlxStringUtil.getDomain(homeURL);
+		var _g = 0;
+		var _g1 = this.allowedURLs;
+		while(_g < _g1.length) if(flixel_util_FlxStringUtil.getDomain(_g1[_g++]) == homeDomain) {
+			return true;
 		}
+		return false;
+	}
+	,__class__: flixel_system_FlxBasePreloader
+});
+var flixel_system_FlxLinkedList = function() {
+	this.exists = true;
+};
+$hxClasses["flixel.system.FlxLinkedList"] = flixel_system_FlxLinkedList;
+flixel_system_FlxLinkedList.__name__ = "flixel.system.FlxLinkedList";
+flixel_system_FlxLinkedList.__int
+
+--- location.href occurrence 2 @ 2202522 ---
+turn storage.getItem(path + ":" + name);
+	};
+	if(localPath != "") {
+		return get(localPath);
+	}
+	var encodedData = get(flixel_util__$FlxSave_FlxSharedObject.getDefaultLocalPath());
+	if(encodedData != null) {
+		return encodedData;
+	}
+	encodedData = get(window.location.pathname);
+	if(encodedData != null) {
+		return encodedData;
+	}
+	return get(window.location.href);
+};
+flixel_util__$FlxSave_FlxSharedObject.__super__ = openfl_net_SharedObject;
+flixel_util__$FlxSave_FlxSharedObject.prototype = $extend(openfl_net_SharedObject.prototype,{
+	__class__: flixel_util__$FlxSave_FlxSharedObject
+});
+var flixel_util_LoadResult = $hxEnums["flixel.util.LoadResult"] = { __ename__:"flixel.util.LoadResult",__constructs__:null
+	,SUCCESS: ($_=function(obj) { return {_hx_index:0,obj:obj,__enum__:"flixel.util.LoadResult",toString:$estr}; },$_._hx_name="SUCCESS",$_.__params__ = ["obj"],$_)
+	,FAILURE: ($_=function
+
+--- location.href occurrence 3 @ 7503419 ---
+ar _this = function(outcome) {
+			_g.checkInitialSession(callback1,outcome);
+		};
+		this.calls.app.checkSession().addOutcomeHandler(_this).sendHelper();
 	}
 };
-funkin_data_event_SongEventRegistry.registerScriptedEvents = function() {
-	var scriptedEventClassNames = funkin_play_event_ScriptedSongEvent.listScriptClasses();
-	haxe_Log.trace("Instantiating " + scriptedEventClassNames.length + " scripted song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 66, className : "funkin.data.event.SongEventRegistry", methodName : "registerScriptedEvents"});
-	if(scriptedEventClassNames == null || scriptedEventClassNames.length == 0) {
-		return;
-	}
-	var _g = 0;
-	while(_g < scriptedEventClassNames.length) {
-		var eventCls = scriptedEventClassNames[_g];
-		++_g;
-		var event = funkin_play_event_ScriptedSongEvent.scriptInit(eventCls,"UKNOWN");
-		if(event != null) {
-			ha
-
---- registerBaseEvents occurrence 5, offset 2539644 ---
-.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
-		}
-		var event = Type.createInstance(eventCls,["UNKNOWN"]);
-		if(event != null) {
-			haxe_Log.trace(" Loaded built-in song event: " + event.id,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 53, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-			funkin_data_event_SongEventRegistry.eventCache.h[event.id] = event;
-		} else {
-			haxe_Log.trace(" Failed to load built-in song event: " + eventCls.__name__,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 58, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
+$hxClasses["io.newgrounds.NGLite"] = io_newgrounds_NGLite;
+io_newgrounds_NGLite.__name__ = "io.newgrounds.NGLite";
+io_newgrounds_NGLite.getSessionId = function() {
+	var url = window.document.location.href;
+	var index = url.indexOf("?");
+	if(index != -1) {
+		var _g = 0;
+		var _g1 = HxOverrides.substr(url,index + 1,null).split("&");
+		while(_g < _g1.length) {
+			var param = _g1[_g];
+			++_g;
+			index = param.indexOf("=");
+			if(index != -1 && HxOverrides.substr(param,0,index) == "ngio_session_id") {
+				return HxOverrides.substr(param,index + 1,null);
+			}
 		}
 	}
+	return null;
 };
-funkin_data_event_SongEventRegistry.registerScriptedEvents = function() {
-	var scriptedEventClassNames = funkin_play_event_ScriptedSongEvent.listScriptClasses();
-	haxe_Log.trace("Instantiating " + scriptedEventClassNames.length + " scripted song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 66, className : "funkin.data.event.SongEventRegistry", methodName : "registerScriptedEvents"});
-	if(scriptedEventClassNames == null || scriptedEventClassNames.length == 0) {
-		return;
+io_newgrounds_NGLite.prototype = {
+	markCallPending_io_newgrounds_Call_T: function(call) {
+		var _gthis = this;
+		this._pendingCalls.push(call);
+		call.addO
+
+--- location.href occurrence 4 @ 7506961 ---
+ null;
+io_newgrounds_NG.create = function(appId,sessionId,debug,callback) {
+	if(debug == null) {
+		debug = false;
 	}
-	var _g = 0;
-	while(_g < scriptedEventClassNames.length) {
-		var eventCls = scriptedEventClassNames[_g];
-		++_g;
-		var event = funkin_play_event_ScriptedSongEvent.scriptInit(eventCls,"UKNOWN");
-		if(event != null) {
-			haxe_Log.trace(" Loaded scripted song event: " + event.id,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 75, className : "funkin.data.event.SongEventRegistry", methodName : "registerScriptedEvents"});
-			funkin_data_event_SongEventRegistry.eventCache.h[event.id] = event;
-		} else {
-			haxe_Log.trace(
+	if(appId == null) {
+		appId = "test";
+	}
+	io_newgrounds_NG.core = new io_newgrounds_NG(appId,sessionId,debug,callback);
+	io_newgrounds_NG.onCoreReady.dispatch();
+};
+io_newgrounds_NG.getHost = function() {
+	var url = window.document.location.href;
+	if(url == null || url == "") {
+		return "AppView";
+	}
+	if(url.indexOf("file") == 0 || url.indexOf("127.0.0.1") != -1) {
+		return "LocalHost";
+	}
+	if(io_newgrounds_NG.urlParser.match(url)) {
+		return io_newgrounds_NG.urlParser.matched(1);
+	}
+	return "Unknown";
+};
+io_newgrounds_NG.__super__ = io_newgrounds_NGLite;
+io_newgrounds_NG.prototype = $extend(io_newgrounds_NGLite.prototype,{
+	get_user: function() {
+		if(this._session == null) {
+			return null;
+		}
+		return this._session.user;
+	}
+	,get_passportUrl: function() {
+		if(this._s
 
+--- location.href occurrence 5 @ 10184994 ---
+xPreloader_GraphicLogoCorners.resourceType = "image/png";
+flixel_system__$FlxPreloader_GraphicLogoCorners.resourceName = "__ASSET__:bitmap_flixel_system__FlxPreloader_GraphicLogoCorners";
+flixel_system_FlxQuadTree._NUM_CACHED_QUAD_TREES = 0;
+lime__$internal_backend_html5_HTML5Thread.__current = new lime__$internal_backend_html5_HTML5Thread($global.location.href);
+lime__$internal_backend_html5_HTML5Thread.__isWorker = typeof window == "undefined";
+lime__$internal_backend_html5_HTML5Thread.__messages = new haxe_ds_List();
+lime__$internal_backend_html5_HTML5Thread.__resolveMethods = new haxe_ds_List();
+lime__$internal_backend_html5_HTML5Thread.__workerCount = 0;
+flixel_system_debug_Icon.cross = new flixel_system_debug__$Icon_Cross(11,11);
+flixel_system_debug_Icon.mover = new flixel_system_debug__$Icon_Mover(11,11);
+flixel_system_debug_Icon.bitmapLog = new flixel_system_debug__$Icon_BitmapLo
 
-SongEventRegistry: 57 occurrence(s)
---- SongEventRegistry occurrence 1, offset 2263170 ---
-xRect(-200,-200,flixel_FlxG.width * 1.4,flixel_FlxG.height * 1.4));
+--- location.href occurrence 6 @ 10441096 ---
+,e],{type:e.type})}return e},v=function(t,u,d){if(!d){t=p(t)}var v=this,w=t.type,m=w===s,y,h=function(){l(v,"writestart progress write writeend".split(" "))},S=function(){if((f||m&&i)&&e.FileReader){var r=new FileReader;r.onloadend=function(){var t=f?r.result:r.result.replace(/^data:[^;]*;/,"data:attachment/file;");var n=e.open(t,"_blank");if(!n)e.location.href=t;t=undefined;v.readyState=v.DONE;h()};r.readAsDataURL(t);v.readyState=v.INIT;return}if(!y){y=n().createObjectURL(t)}if(m){e.location.href=y}else{var o=e.open(y,"_blank");if(!o){e.location.href=y}}v.readyState=v.DONE;h();c(y)};v.readyState=v.INIT;if(o){y=n().createObjectURL(t);setTimeout(function(){r.href=y;r.download=u;a(r);h();c(y);v.readyState=v.DONE});return}S()},w=v.prototype,m=function(e,t,n){return new v(e,t||e.name||"download",n)};if(typeof navigator!=="undefined"&&navigator.msSaveOrOpenBlob){return function(e,t,n){t=t||e.
+
+--- location.href occurrence 7 @ 10441235 ---
+eend".split(" "))},S=function(){if((f||m&&i)&&e.FileReader){var r=new FileReader;r.onloadend=function(){var t=f?r.result:r.result.replace(/^data:[^;]*;/,"data:attachment/file;");var n=e.open(t,"_blank");if(!n)e.location.href=t;t=undefined;v.readyState=v.DONE;h()};r.readAsDataURL(t);v.readyState=v.INIT;return}if(!y){y=n().createObjectURL(t)}if(m){e.location.href=y}else{var o=e.open(y,"_blank");if(!o){e.location.href=y}}v.readyState=v.DONE;h();c(y)};v.readyState=v.INIT;if(o){y=n().createObjectURL(t);setTimeout(function(){r.href=y;r.download=u;a(r);h();c(y);v.readyState=v.DONE});return}S()},w=v.prototype,m=function(e,t,n){return new v(e,t||e.name||"download",n)};if(typeof navigator!=="undefined"&&navigator.msSaveOrOpenBlob){return function(e,t,n){t=t||e.name||"download";if(!n){e=p(e)}return navigator.msSaveOrOpenBlob(e,t)}}w.abort=function(){};w.readyState=w.INIT=0;w.WRITING=1;w.DONE=2;w.er
+
+--- location.href occurrence 8 @ 10441290 ---
+der){var r=new FileReader;r.onloadend=function(){var t=f?r.result:r.result.replace(/^data:[^;]*;/,"data:attachment/file;");var n=e.open(t,"_blank");if(!n)e.location.href=t;t=undefined;v.readyState=v.DONE;h()};r.readAsDataURL(t);v.readyState=v.INIT;return}if(!y){y=n().createObjectURL(t)}if(m){e.location.href=y}else{var o=e.open(y,"_blank");if(!o){e.location.href=y}}v.readyState=v.DONE;h();c(y)};v.readyState=v.INIT;if(o){y=n().createObjectURL(t);setTimeout(function(){r.href=y;r.download=u;a(r);h();c(y);v.readyState=v.DONE});return}S()},w=v.prototype,m=function(e,t,n){return new v(e,t||e.name||"download",n)};if(typeof navigator!=="undefined"&&navigator.msSaveOrOpenBlob){return function(e,t,n){t=t||e.name||"download";if(!n){e=p(e)}return navigator.msSaveOrOpenBlob(e,t)}}w.abort=function(){};w.readyState=w.INIT=0;w.WRITING=1;w.DONE=2;w.error=w.onwritestart=w.onprogress=w.onwrite=w.onabort=w.o
+
+location.pathname: 1 occurrence(s)
+--- location.pathname occurrence 1 @ 2202431 ---
+etLocalStorage();
+	if(storage == null) {
+		return null;
+	}
+	var get = function(path) {
+		return storage.getItem(path + ":" + name);
+	};
+	if(localPath != "") {
+		return get(localPath);
+	}
+	var encodedData = get(flixel_util__$FlxSave_FlxSharedObject.getDefaultLocalPath());
+	if(encodedData != null) {
+		return encodedData;
+	}
+	encodedData = get(window.location.pathname);
+	if(encodedData != null) {
+		return encodedData;
+	}
+	return get(window.location.href);
+};
+flixel_util__$FlxSave_FlxSharedObject.__super__ = openfl_net_SharedObject;
+flixel_util__$FlxSave_FlxSharedObject.prototype = $extend(openfl_net_SharedObject.prototype,{
+	__class__: flixel_util__$FlxSave_FlxSharedObject
+});
+var flixel_util_LoadResult = $hxEnums["flixel.util.LoadResult"] = { __ename__:"flixel.util.LoadResult",__constructs__:null
+	,SUCCESS: ($_=function(obj) { return {_hx_index:0,obj:obj,__enum__:"flixel.util.LoadResult",t
+
+document.baseURI: 0 occurrence(s)
+baseURI: 0 occurrence(s)
+getElementsByTagName("script"): 0 occurrence(s)
+XMLHttpRequest: 3 occurrence(s)
+--- XMLHttpRequest occurrence 1 @ 7979302 ---
+lime__$internal_backend_html5_HTML5HTTPRequest.__revokeBlobURI(uri,options);
+			lime__$internal_backend_html5_HTML5HTTPRequest.activeRequests--;
+			lime__$internal_backend_html5_HTML5HTTPRequest.processQueue();
+			promise.error(new lime_net__$HTTPRequestErrorResponse(event.detail,null));
+		},false);
+		image.src = uri;
+	} else {
+		var request = new XMLHttpRequest();
+		request.onload = function(_) {
+			lime__$internal_backend_html5_HTML5HTTPRequest.activeRequests--;
+			lime__$internal_backend_html5_HTML5HTTPRequest.processQueue();
+			var img = new lime_graphics_Image();
+			img.__fromBytes(haxe_io_Bytes.ofData(request.response),function(img) {
+				promise.complete(img);
 			});
-			funkin_api_newgrounds_NewgroundsClient.get_instance().init();
-			funkin_util_plugins_NewgroundsMedalPlugin.initialize();
-			funkin_util_plugins_EvacuateDebugPlugin.initialize();
-			funkin_util_plugins_ForceCrashPlugin.initialize();
-			funkin_util_plugins_ReloadAssetsDebugPlugin.initialize();
-			funkin_util_plugins_VolumePlugin.initialize();
-			funkin_util_plugins_WatchPlugin.initialize();
-			funkin_InitState._coreInitialized = true;
-		}
-		haxe_Log.trace("Parsing game data...",{ fileName : "source/funkin/InitState.hx", lineNumber : 288, className : "funkin.InitState", methodName : "setupShit"});
-		funkin_data_event_SongEventRegistry.loadEventCache();
-		funkin_data_song_SongRegistry.get_instance().loadEntries();
-		funkin_data_story_level_LevelRegistry.get_instance().loadEntries();
-		funkin_data_notestyle_NoteStyleRegistry.get_instance().loadEntries();
-		funkin_data_freeplay_player_PlayerRegistry.get_instance().loadEntries();
-		funkin_data_dialogue_ConversationRegistry.get_instance().loadEntries();
-		funkin_data_dialogue_DialogueBoxRegistry.get_instance().loadEntries();
-		funkin_data_dialogue_SpeakerRegistry.get_instance().loadEntries();
-		funkin_data_freeplay_style_FreeplayStyleRegistry.get_instance().loadEntries();
-		funkin_data_freeplay_album_AlbumRegistry.get_instance().loadEntries();
-		funkin_data_stage_StageRegistry.get_instance().loadEntries();
-		funkin_data_stickers_StickerRegistry.instance.loadEntries();
-		funkin_data_character_CharacterDataParser.loadCharacterCache();
-		funkin_play_notes_notekind_NoteKindManager.initialize();
-		funkin_modding_module_ModuleHandler.buildModuleCallbacks();
-		funkin_modding_module_ModuleHandler.loadModuleCache();
-		funkin_modding_module_ModuleHandler.callEv
+		};
+		request.onerror = function(event) {
+			promise.error(new lime_net__$HTTPRequestErrorResponse(event.message,null));
+		};
+		request.onprogress = function(event) {
+			if(event.lengthComputable) {
+				promise.progr
 
---- SongEventRegistry occurrence 2, offset 2537879 ---
-in_util_AnsiUtil.__name__ = "funkin.util.AnsiUtil";
-funkin_util_AnsiUtil.apply = function(str,code) {
-	if(str.indexOf("\x1B[0m") != -1) {
-		str = StringTools.replace(str,"\x1B[0m","");
-	}
-	return funkin_util_AnsiUtil.stripCodes(code + str + "\x1B[0m");
-};
-funkin_util_AnsiUtil.isColorCodesSupported = function() {
-	if(funkin_util_AnsiUtil.codesSupported == null) {
-		funkin_util_AnsiUtil.codesSupported = false;
-	}
-	return funkin_util_AnsiUtil.codesSupported == true;
-};
-funkin_util_AnsiUtil.stripCodes = function(output) {
-	if(funkin_util_AnsiUtil.isColorCodesSupported()) {
-		return output;
-	} else {
-		return output.replace(funkin_util_AnsiUtil.REGEX_ANSI_CODES.r,"");
+--- XMLHttpRequest occurrence 2 @ 7980439 ---
+HTML5HTTPRequest.__revokeBlobURI = function(uri,options) {
+	if((options & 1) != 0) {
+		URL.revokeObjectURL(uri);
 	}
 };
-var funkin_data_event_SongEventRegistry = function() { };
-$hxClasses["funkin.data.event.SongEventRegistry"] = funkin_data_event_SongEventRegistry;
-funkin_data_event_SongEventRegistry.__name__ = "funkin.data.event.SongEventRegistry";
-funkin_data_event_SongEventRegistry.loadEventCache = function() {
-	funkin_data_event_SongEventRegistry.clearEventCache();
-	funkin_data_event_SongEventRegistry.registerBaseEvents();
-	funkin_data_event_SongEventRegistry.registerScriptedEvents();
-};
-funkin_data_event_SongEventRegistry.registerBaseEvents = function() {
-	haxe_Log.trace("Instantiating " + funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.length + " built-in song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 43, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "fun
-
---- SongEventRegistry occurrence 3, offset 2537945 ---
-siUtil.apply = function(str,code) {
-	if(str.indexOf("\x1B[0m") != -1) {
-		str = StringTools.replace(str,"\x1B[0m","");
+lime__$internal_backend_html5_HTML5HTTPRequest.prototype = {
+	binary: null
+	,parent: null
+	,request: null
+	,init: function(parent) {
+		this.parent = parent;
 	}
-	return funkin_util_AnsiUtil.stripCodes(code + str + "\x1B[0m");
-};
-funkin_util_AnsiUtil.isColorCodesSupported = function() {
-	if(funkin_util_AnsiUtil.codesSupported == null) {
-		funkin_util_AnsiUtil.codesSupported = false;
-	}
-	return funkin_util_AnsiUtil.codesSupported == true;
-};
-funkin_util_AnsiUtil.stripCodes = function(output) {
-	if(funkin_util_AnsiUtil.isColorCodesSupported()) {
-		return output;
-	} else {
-		return output.replace(funkin_util_AnsiUtil.REGEX_ANSI_CODES.r,"");
-	}
-};
-var funkin_data_event_SongEventRegistry = function() { };
-$hxClasses["funkin.data.event.SongEventRegistry"] = funkin_data_event_SongEventRegistry;
-funkin_data_event_SongEventRegistry.__name__ = "funkin.data.event.SongEventRegistry";
-funkin_data_event_SongEventRegistry.loadEventCache = function() {
-	funkin_data_event_SongEventRegistry.clearEventCache();
-	funkin_data_event_SongEventRegistry.registerBaseEvents();
-	funkin_data_event_SongEventRegistry.registerScriptedEvents();
-};
-funkin_data_event_SongEventRegistry.registerBaseEvents = function() {
-	haxe_Log.trace("Instantiating " + funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.length + " built-in song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 43, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
-		}
-		var event 
-
---- SongEventRegistry occurrence 4, offset 2537985 ---
-str.indexOf("\x1B[0m") != -1) {
-		str = StringTools.replace(str,"\x1B[0m","");
-	}
-	return funkin_util_AnsiUtil.stripCodes(code + str + "\x1B[0m");
-};
-funkin_util_AnsiUtil.isColorCodesSupported = function() {
-	if(funkin_util_AnsiUtil.codesSupported == null) {
-		funkin_util_AnsiUtil.codesSupported = false;
-	}
-	return funkin_util_AnsiUtil.codesSupported == true;
-};
-funkin_util_AnsiUtil.stripCodes = function(output) {
-	if(funkin_util_AnsiUtil.isColorCodesSupported()) {
-		return output;
-	} else {
-		return output.replace(funkin_util_AnsiUtil.REGEX_ANSI_CODES.r,"");
-	}
-};
-var funkin_data_event_SongEventRegistry = function() { };
-$hxClasses["funkin.data.event.SongEventRegistry"] = funkin_data_event_SongEventRegistry;
-funkin_data_event_SongEventRegistry.__name__ = "funkin.data.event.SongEventRegistry";
-funkin_data_event_SongEventRegistry.loadEventCache = function() {
-	funkin_data_event_SongEventRegistry.clearEventCache();
-	funkin_data_event_SongEventRegistry.registerBaseEvents();
-	funkin_data_event_SongEventRegistry.registerScriptedEvents();
-};
-funkin_data_event_SongEventRegistry.registerBaseEvents = function() {
-	haxe_Log.trace("Instantiating " + funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.length + " built-in song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 43, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
-		}
-		var event = Type.createInstance(eventCls,["UNKNOWN
-
---- SongEventRegistry occurrence 5, offset 2538022 ---
- = StringTools.replace(str,"\x1B[0m","");
-	}
-	return funkin_util_AnsiUtil.stripCodes(code + str + "\x1B[0m");
-};
-funkin_util_AnsiUtil.isColorCodesSupported = function() {
-	if(funkin_util_AnsiUtil.codesSupported == null) {
-		funkin_util_AnsiUtil.codesSupported = false;
-	}
-	return funkin_util_AnsiUtil.codesSupported == true;
-};
-funkin_util_AnsiUtil.stripCodes = function(output) {
-	if(funkin_util_AnsiUtil.isColorCodesSupported()) {
-		return output;
-	} else {
-		return output.replace(funkin_util_AnsiUtil.REGEX_ANSI_CODES.r,"");
-	}
-};
-var funkin_data_event_SongEventRegistry = function() { };
-$hxClasses["funkin.data.event.SongEventRegistry"] = funkin_data_event_SongEventRegistry;
-funkin_data_event_SongEventRegistry.__name__ = "funkin.data.event.SongEventRegistry";
-funkin_data_event_SongEventRegistry.loadEventCache = function() {
-	funkin_data_event_SongEventRegistry.clearEventCache();
-	funkin_data_event_SongEventRegistry.registerBaseEvents();
-	funkin_data_event_SongEventRegistry.registerScriptedEvents();
-};
-funkin_data_event_SongEventRegistry.registerBaseEvents = function() {
-	haxe_Log.trace("Instantiating " + funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.length + " built-in song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 43, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
-		}
-		var event = Type.createInstance(eventCls,["UNKNOWN"]);
-		if(event != null) {
-			haxe_Lo
-
---- SongEventRegistry occurrence 6, offset 2538070 ---
-turn funkin_util_AnsiUtil.stripCodes(code + str + "\x1B[0m");
-};
-funkin_util_AnsiUtil.isColorCodesSupported = function() {
-	if(funkin_util_AnsiUtil.codesSupported == null) {
-		funkin_util_AnsiUtil.codesSupported = false;
-	}
-	return funkin_util_AnsiUtil.codesSupported == true;
-};
-funkin_util_AnsiUtil.stripCodes = function(output) {
-	if(funkin_util_AnsiUtil.isColorCodesSupported()) {
-		return output;
-	} else {
-		return output.replace(funkin_util_AnsiUtil.REGEX_ANSI_CODES.r,"");
-	}
-};
-var funkin_data_event_SongEventRegistry = function() { };
-$hxClasses["funkin.data.event.SongEventRegistry"] = funkin_data_event_SongEventRegistry;
-funkin_data_event_SongEventRegistry.__name__ = "funkin.data.event.SongEventRegistry";
-funkin_data_event_SongEventRegistry.loadEventCache = function() {
-	funkin_data_event_SongEventRegistry.clearEventCache();
-	funkin_data_event_SongEventRegistry.registerBaseEvents();
-	funkin_data_event_SongEventRegistry.registerScriptedEvents();
-};
-funkin_data_event_SongEventRegistry.registerBaseEvents = function() {
-	haxe_Log.trace("Instantiating " + funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.length + " built-in song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 43, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
-		}
-		var event = Type.createInstance(eventCls,["UNKNOWN"]);
-		if(event != null) {
-			haxe_Log.trace(" Loaded built-in song event: " + event.
-
---- SongEventRegistry occurrence 7, offset 2538108 ---
-ode + str + "\x1B[0m");
-};
-funkin_util_AnsiUtil.isColorCodesSupported = function() {
-	if(funkin_util_AnsiUtil.codesSupported == null) {
-		funkin_util_AnsiUtil.codesSupported = false;
-	}
-	return funkin_util_AnsiUtil.codesSupported == true;
-};
-funkin_util_AnsiUtil.stripCodes = function(output) {
-	if(funkin_util_AnsiUtil.isColorCodesSupported()) {
-		return output;
-	} else {
-		return output.replace(funkin_util_AnsiUtil.REGEX_ANSI_CODES.r,"");
-	}
-};
-var funkin_data_event_SongEventRegistry = function() { };
-$hxClasses["funkin.data.event.SongEventRegistry"] = funkin_data_event_SongEventRegistry;
-funkin_data_event_SongEventRegistry.__name__ = "funkin.data.event.SongEventRegistry";
-funkin_data_event_SongEventRegistry.loadEventCache = function() {
-	funkin_data_event_SongEventRegistry.clearEventCache();
-	funkin_data_event_SongEventRegistry.registerBaseEvents();
-	funkin_data_event_SongEventRegistry.registerScriptedEvents();
-};
-funkin_data_event_SongEventRegistry.registerBaseEvents = function() {
-	haxe_Log.trace("Instantiating " + funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.length + " built-in song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 43, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
-		}
-		var event = Type.createInstance(eventCls,["UNKNOWN"]);
-		if(event != null) {
-			haxe_Log.trace(" Loaded built-in song event: " + event.id,{ fileName : "source/funkin/data/ev
-
---- SongEventRegistry occurrence 8, offset 2538175 ---
-ed = function() {
-	if(funkin_util_AnsiUtil.codesSupported == null) {
-		funkin_util_AnsiUtil.codesSupported = false;
-	}
-	return funkin_util_AnsiUtil.codesSupported == true;
-};
-funkin_util_AnsiUtil.stripCodes = function(output) {
-	if(funkin_util_AnsiUtil.isColorCodesSupported()) {
-		return output;
-	} else {
-		return output.replace(funkin_util_AnsiUtil.REGEX_ANSI_CODES.r,"");
-	}
-};
-var funkin_data_event_SongEventRegistry = function() { };
-$hxClasses["funkin.data.event.SongEventRegistry"] = funkin_data_event_SongEventRegistry;
-funkin_data_event_SongEventRegistry.__name__ = "funkin.data.event.SongEventRegistry";
-funkin_data_event_SongEventRegistry.loadEventCache = function() {
-	funkin_data_event_SongEventRegistry.clearEventCache();
-	funkin_data_event_SongEventRegistry.registerBaseEvents();
-	funkin_data_event_SongEventRegistry.registerScriptedEvents();
-};
-funkin_data_event_SongEventRegistry.registerBaseEvents = function() {
-	haxe_Log.trace("Instantiating " + funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.length + " built-in song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 43, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
-		}
-		var event = Type.createInstance(eventCls,["UNKNOWN"]);
-		if(event != null) {
-			haxe_Log.trace(" Loaded built-in song event: " + event.id,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 53, className : "funkin.dat
-
---- SongEventRegistry occurrence 9, offset 2538231 ---
-d == null) {
-		funkin_util_AnsiUtil.codesSupported = false;
-	}
-	return funkin_util_AnsiUtil.codesSupported == true;
-};
-funkin_util_AnsiUtil.stripCodes = function(output) {
-	if(funkin_util_AnsiUtil.isColorCodesSupported()) {
-		return output;
-	} else {
-		return output.replace(funkin_util_AnsiUtil.REGEX_ANSI_CODES.r,"");
-	}
-};
-var funkin_data_event_SongEventRegistry = function() { };
-$hxClasses["funkin.data.event.SongEventRegistry"] = funkin_data_event_SongEventRegistry;
-funkin_data_event_SongEventRegistry.__name__ = "funkin.data.event.SongEventRegistry";
-funkin_data_event_SongEventRegistry.loadEventCache = function() {
-	funkin_data_event_SongEventRegistry.clearEventCache();
-	funkin_data_event_SongEventRegistry.registerBaseEvents();
-	funkin_data_event_SongEventRegistry.registerScriptedEvents();
-};
-funkin_data_event_SongEventRegistry.registerBaseEvents = function() {
-	haxe_Log.trace("Instantiating " + funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.length + " built-in song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 43, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
-		}
-		var event = Type.createInstance(eventCls,["UNKNOWN"]);
-		if(event != null) {
-			haxe_Log.trace(" Loaded built-in song event: " + event.id,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 53, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEv
-
---- SongEventRegistry occurrence 10, offset 2538290 ---
-
-	}
-	return funkin_util_AnsiUtil.codesSupported == true;
-};
-funkin_util_AnsiUtil.stripCodes = function(output) {
-	if(funkin_util_AnsiUtil.isColorCodesSupported()) {
-		return output;
-	} else {
-		return output.replace(funkin_util_AnsiUtil.REGEX_ANSI_CODES.r,"");
-	}
-};
-var funkin_data_event_SongEventRegistry = function() { };
-$hxClasses["funkin.data.event.SongEventRegistry"] = funkin_data_event_SongEventRegistry;
-funkin_data_event_SongEventRegistry.__name__ = "funkin.data.event.SongEventRegistry";
-funkin_data_event_SongEventRegistry.loadEventCache = function() {
-	funkin_data_event_SongEventRegistry.clearEventCache();
-	funkin_data_event_SongEventRegistry.registerBaseEvents();
-	funkin_data_event_SongEventRegistry.registerScriptedEvents();
-};
-funkin_data_event_SongEventRegistry.registerBaseEvents = function() {
-	haxe_Log.trace("Instantiating " + funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.length + " built-in song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 43, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
-		}
-		var event = Type.createInstance(eventCls,["UNKNOWN"]);
-		if(event != null) {
-			haxe_Log.trace(" Loaded built-in song event: " + event.id,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 53, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-			funkin_data_event_SongEventRegistry.eventCache.
-
---- SongEventRegistry occurrence 11, offset 2538355 ---
-n_util_AnsiUtil.stripCodes = function(output) {
-	if(funkin_util_AnsiUtil.isColorCodesSupported()) {
-		return output;
-	} else {
-		return output.replace(funkin_util_AnsiUtil.REGEX_ANSI_CODES.r,"");
-	}
-};
-var funkin_data_event_SongEventRegistry = function() { };
-$hxClasses["funkin.data.event.SongEventRegistry"] = funkin_data_event_SongEventRegistry;
-funkin_data_event_SongEventRegistry.__name__ = "funkin.data.event.SongEventRegistry";
-funkin_data_event_SongEventRegistry.loadEventCache = function() {
-	funkin_data_event_SongEventRegistry.clearEventCache();
-	funkin_data_event_SongEventRegistry.registerBaseEvents();
-	funkin_data_event_SongEventRegistry.registerScriptedEvents();
-};
-funkin_data_event_SongEventRegistry.registerBaseEvents = function() {
-	haxe_Log.trace("Instantiating " + funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.length + " built-in song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 43, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
-		}
-		var event = Type.createInstance(eventCls,["UNKNOWN"]);
-		if(event != null) {
-			haxe_Log.trace(" Loaded built-in song event: " + event.id,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 53, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-			funkin_data_event_SongEventRegistry.eventCache.h[event.id] = event;
+	,load: function(uri,progress,readyStateChange) {
+		this.request = new XMLHttpRequest();
+		if(this.parent.method == "POST") {
+			if(this.request.upload != null) {
+				this.request.upload.addEventListener("progress",progress,false);
+			}
 		} else {
-			haxe_Log.trace(" Failed to loa
+			this.request.addEventListener("progress",progress,false);
+		}
+		this.request.onreadystatechange = readyStateChange;
+		var query = "";
+		if(this.parent.data == null) {
+			var key_keys = Object.keys(this.parent.formData.h);
+			var key_length = key_keys.length;
+			var key_current = 0;
+			while(key_current < key_length) {
+				var key = key_keys[key_current++];
+				if(quer
 
---- SongEventRegistry occurrence 12, offset 2538460 ---
-urn output;
+--- XMLHttpRequest occurrence 3 @ 10339645 ---
+out XHR, since some browsers don't support it.
+      var data = atob(url.split(',')[1]);
+      var dataView = new Uint8Array(data.length);
+      for (var i=0; i<data.length; ++i) {
+        dataView[i] = data.charCodeAt(i);
+      }
+
+      decodeAudioData(dataView.buffer, self);
+    } else {
+      // Load the buffer from the URL.
+      var xhr = new XMLHttpRequest();
+      xhr.open(self._xhr.method, url, true);
+      xhr.withCredentials = self._xhr.withCredentials;
+      xhr.responseType = 'arraybuffer';
+
+      // Apply any custom headers to the request.
+      if (self._xhr.headers) {
+        Object.keys(self._xhr.headers).forEach(function(key) {
+          xhr.setRequestHeader(key, self._xhr.headers[key]);
+        });
+      }
+
+      xhr.onload = function() {
+        // Make sure we get a successful response back.
+        var code = (xhr.status + '')[0];
+        if (code !== '0' && code !==
+
+assets/: 36 occurrence(s)
+--- assets/ occurrence 1 @ 2271385 ---
+{
+	var parts = path.split(":");
+	if(parts.length < 2) {
+		return "preload";
+	}
+	return parts[0];
+};
+funkin_Paths.getPath = function(file,type,library) {
+	if(library != null) {
+		return funkin_Paths.getLibraryPath(file,library);
+	}
+	if(funkin_Paths.currentLevel != null) {
+		var library = funkin_Paths.currentLevel;
+		var levelPath = "" + library + ":assets/" + library + "/" + file;
+		if(funkin_Assets.exists(levelPath,type)) {
+			return levelPath;
+		}
+	}
+	var levelPath = "shared" + ":assets/" + "shared" + "/" + file;
+	if(funkin_Assets.exists(levelPath,type)) {
+		return levelPath;
+	}
+	return "assets/" + file;
+};
+funkin_Paths.getLibraryPath = function(file,library) {
+	if(library == null) {
+		library = "preload";
+	}
+	if(library == "preload" || library == "default") {
+		return "assets/" + file;
 	} else {
-		return output.replace(funkin_util_AnsiUtil.REGEX_ANSI_CODES.r,"");
+		return "" + library + ":assets/" + library + "/" + file;
 	}
 };
-var funkin_data_event_SongEventRegistry = function() { };
-$hxClasses["funkin.data.event.SongEventRegistry"] = funkin_data_event_SongEventRegistry;
-funkin_data_event_SongEventRegistry.__name__ = "funkin.data.event.SongEventRegistry";
-funkin_data_event_SongEventRegistry.loadEventCache = function() {
-	funkin_data_event_SongEventRegistry.clearEventCache();
-	funkin_data_event_SongEventRegistry.registerBaseEvents();
-	funkin_data_event_SongEventRegistry.registerScriptedEvents();
-};
-funkin_data_event_SongEventRegistry.registerBaseEvents = function() {
-	haxe_Log.trace("Instantiating " + funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.length + " built-in song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 43, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
+funkin_Paths.file = functi
+
+--- assets/ occurrence 2 @ 2271521 ---
+,type,library) {
+	if(library != null) {
+		return funkin_Paths.getLibraryPath(file,library);
+	}
+	if(funkin_Paths.currentLevel != null) {
+		var library = funkin_Paths.currentLevel;
+		var levelPath = "" + library + ":assets/" + library + "/" + file;
+		if(funkin_Assets.exists(levelPath,type)) {
+			return levelPath;
 		}
-		var event = Type.createInstance(eventCls,["UNKNOWN"]);
-		if(event != null) {
-			haxe_Log.trace(" Loaded built-in song event: " + event.id,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 53, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-			funkin_data_event_SongEventRegistry.eventCache.h[event.id] = event;
+	}
+	var levelPath = "shared" + ":assets/" + "shared" + "/" + file;
+	if(funkin_Assets.exists(levelPath,type)) {
+		return levelPath;
+	}
+	return "assets/" + file;
+};
+funkin_Paths.getLibraryPath = function(file,library) {
+	if(library == null) {
+		library = "preload";
+	}
+	if(library == "preload" || library == "default") {
+		return "assets/" + file;
+	} else {
+		return "" + library + ":assets/" + library + "/" + file;
+	}
+};
+funkin_Paths.file = function(file,type,library) {
+	if(type == null) {
+		type = "TEXT";
+	}
+	return funkin_Paths.getPath(file,type,library);
+};
+funkin_Paths.animate
+
+--- assets/ occurrence 3 @ 2271631 ---
+s.currentLevel != null) {
+		var library = funkin_Paths.currentLevel;
+		var levelPath = "" + library + ":assets/" + library + "/" + file;
+		if(funkin_Assets.exists(levelPath,type)) {
+			return levelPath;
+		}
+	}
+	var levelPath = "shared" + ":assets/" + "shared" + "/" + file;
+	if(funkin_Assets.exists(levelPath,type)) {
+		return levelPath;
+	}
+	return "assets/" + file;
+};
+funkin_Paths.getLibraryPath = function(file,library) {
+	if(library == null) {
+		library = "preload";
+	}
+	if(library == "preload" || library == "default") {
+		return "assets/" + file;
+	} else {
+		return "" + library + ":assets/" + library + "/" + file;
+	}
+};
+funkin_Paths.file = function(file,type,library) {
+	if(type == null) {
+		type = "TEXT";
+	}
+	return funkin_Paths.getPath(file,type,library);
+};
+funkin_Paths.animateAtlas = function(path,library) {
+	return funkin_Paths.getLibraryPath("images/" + path,library);
+};
+funkin_Path
+
+--- assets/ occurrence 4 @ 2271817 ---
+eturn levelPath;
+		}
+	}
+	var levelPath = "shared" + ":assets/" + "shared" + "/" + file;
+	if(funkin_Assets.exists(levelPath,type)) {
+		return levelPath;
+	}
+	return "assets/" + file;
+};
+funkin_Paths.getLibraryPath = function(file,library) {
+	if(library == null) {
+		library = "preload";
+	}
+	if(library == "preload" || library == "default") {
+		return "assets/" + file;
+	} else {
+		return "" + library + ":assets/" + library + "/" + file;
+	}
+};
+funkin_Paths.file = function(file,type,library) {
+	if(type == null) {
+		type = "TEXT";
+	}
+	return funkin_Paths.getPath(file,type,library);
+};
+funkin_Paths.animateAtlas = function(path,library) {
+	return funkin_Paths.getLibraryPath("images/" + path,library);
+};
+funkin_Paths.txt = function(key,library) {
+	return funkin_Paths.getPath("data/" + key + ".txt","TEXT",library);
+};
+funkin_Paths.frag = function(key,library) {
+	return funkin_Paths.getPath("shaders/
+
+--- assets/ occurrence 5 @ 2271870 ---
+:assets/" + "shared" + "/" + file;
+	if(funkin_Assets.exists(levelPath,type)) {
+		return levelPath;
+	}
+	return "assets/" + file;
+};
+funkin_Paths.getLibraryPath = function(file,library) {
+	if(library == null) {
+		library = "preload";
+	}
+	if(library == "preload" || library == "default") {
+		return "assets/" + file;
+	} else {
+		return "" + library + ":assets/" + library + "/" + file;
+	}
+};
+funkin_Paths.file = function(file,type,library) {
+	if(type == null) {
+		type = "TEXT";
+	}
+	return funkin_Paths.getPath(file,type,library);
+};
+funkin_Paths.animateAtlas = function(path,library) {
+	return funkin_Paths.getLibraryPath("images/" + path,library);
+};
+funkin_Paths.txt = function(key,library) {
+	return funkin_Paths.getPath("data/" + key + ".txt","TEXT",library);
+};
+funkin_Paths.frag = function(key,library) {
+	return funkin_Paths.getPath("shaders/" + key + ".frag","TEXT",library);
+};
+funkin_Paths.js
+
+--- assets/ occurrence 6 @ 2273645 ---
+file + "." + path.ext,"BINARY",library != null ? library : "videos");
+	}
+	return funkin_Paths.getPath("videos/" + key + "." + funkin_util_Constants.EXT_VIDEO,"BINARY",library != null ? library : "videos");
+};
+funkin_Paths.voices = function(song,suffix) {
+	if(suffix == null) {
+		suffix = "";
+	}
+	if(suffix == null) {
+		suffix = "";
+	}
+	return "songs:assets/songs/" + song.toLowerCase() + "/Voices" + suffix + "." + funkin_util_Constants.EXT_SOUND;
+};
+funkin_Paths.inst = function(song,suffix,withExtension) {
+	if(withExtension == null) {
+		withExtension = true;
+	}
+	if(suffix == null) {
+		suffix = "";
+	}
+	return "songs:assets/songs/" + song.toLowerCase() + "/Inst" + suffix + (withExtension ? "." + funkin_util_Constants.EXT_SOUND : "");
+};
+funkin_Paths.image = function(key,library) {
+	return funkin_Paths.getPath("images/" + key + ".png","IMAGE",library);
+};
+funkin_Paths.font = function(key) {
+	r
+
+--- assets/ occurrence 7 @ 2273915 ---
+ull) {
+		suffix = "";
+	}
+	if(suffix == null) {
+		suffix = "";
+	}
+	return "songs:assets/songs/" + song.toLowerCase() + "/Voices" + suffix + "." + funkin_util_Constants.EXT_SOUND;
+};
+funkin_Paths.inst = function(song,suffix,withExtension) {
+	if(withExtension == null) {
+		withExtension = true;
+	}
+	if(suffix == null) {
+		suffix = "";
+	}
+	return "songs:assets/songs/" + song.toLowerCase() + "/Inst" + suffix + (withExtension ? "." + funkin_util_Constants.EXT_SOUND : "");
+};
+funkin_Paths.image = function(key,library) {
+	return funkin_Paths.getPath("images/" + key + ".png","IMAGE",library);
+};
+funkin_Paths.font = function(key) {
+	return "assets/fonts/" + key;
+};
+funkin_Paths.getSparrowAtlas = function(key,library) {
+	return flixel_graphics_frames_FlxAtlasFrames.fromSparrow(funkin_Paths.image(key,library),funkin_Paths.file("images/" + key + ".xml",null,library));
+};
+funkin_Paths.getAnimateAtlas = 
+
+--- assets/ occurrence 8 @ 2274202 ---
+rue;
+	}
+	if(suffix == null) {
+		suffix = "";
+	}
+	return "songs:assets/songs/" + song.toLowerCase() + "/Inst" + suffix + (withExtension ? "." + funkin_util_Constants.EXT_SOUND : "");
+};
+funkin_Paths.image = function(key,library) {
+	return funkin_Paths.getPath("images/" + key + ".png","IMAGE",library);
+};
+funkin_Paths.font = function(key) {
+	return "assets/fonts/" + key;
+};
+funkin_Paths.getSparrowAtlas = function(key,library) {
+	return flixel_graphics_frames_FlxAtlasFrames.fromSparrow(funkin_Paths.image(key,library),funkin_Paths.file("images/" + key + ".xml",null,library));
+};
+funkin_Paths.getAnimateAtlas = function(key,library,settings) {
+	var assetLibrary = library != null ? library : "";
+	var graphicKey = "";
+	if(assetLibrary != "") {
+		graphicKey = funkin_Paths.animateAtlas(key,assetLibrary);
+	} else {
+		graphicKey = funkin_Paths.animateAtlas(key);
+	}
+	var tmp = settings != null ? sett
+
+Funkin.js: 0 occurrence(s)
+lime.embed: 5 occurrence(s)
+--- lime.embed occurrence 1 @ 4024586 ---
+EntryPoint == null) {
+		return;
+	}
+	if(Object.prototype.hasOwnProperty.call(lime_system_System.__applicationEntryPoint.h,projectName)) {
+		var htmlElement = null;
+		if(typeof(element) == "string") {
+			htmlElement = window.document.getElementById(element);
 		} else {
-			haxe_Log.trace(" Failed to load built-in song event: " + eventCls.__name__,{ fileName : "source/funkin/data/event/SongEventRegistry.hx"
+			htmlElement = element;
+		}
+		if(htmlElement == null) {
+			window.console.log("[lime.embed] ERROR: Cannot find target element: " + Std.string(element));
+			return;
+		}
+		if(width == null) {
+			width = 0;
+		}
+		if(height == null) {
+			height = 0;
+		}
+		if(config == null) {
+			config = { };
+		}
+		if(Object.prototype.hasOwnProperty.call(config,"background") && typeof(config.background) == "string") {
+			var background = StringTools.replace(Std.string(config.background),"#","");
+			if(background.indexOf("0x") > -1) {
+				config.background = Std.parseInt(background);
+			} else {
+				config.background = Std.parseInt("0x" + backg
+
+--- lime.embed occurrence 2 @ 10259501 ---
+self !== "undefined" && self.constructor.name.includes("Worker")) {
+		// No need for exports in a worker context, just initialize statics.
+		$hx_script({}, $global);
+	} else {
+		$hx_exports.lime = $hx_exports.lime || {};
+		$hx_exports.lime.$scripts = $hx_exports.lime.$scripts || {};
+		$hx_exports.lime.$scripts["Funkin"] = $hx_script;
+		$hx_exports.lime.embed = function (projectName) {
+			var exports = {};
+			var script = $hx_exports.lime.$scripts[projectName];
+			if (!script) throw Error("Cannot find project name \"" + projectName + "\"");
+			script(exports, $global);
+			for (var key in exports) $hx_exports[key] = $hx_exports[key] || exports[key];
+			var lime = exports.lime || window.lime;
+			if (lime && lime.embed && this !== lime.embed) lime.embed.apply(lime, arguments);
+			return exports;
+		};
+	}
+
+	if (typeof define === "function" && define.amd) {
+		define([], function () { return $hx
+
+--- lime.embed occurrence 3 @ 10259865 ---
+unction (projectName) {
+			var exports = {};
+			var script = $hx_exports.lime.$scripts[projectName];
+			if (!script) throw Error("Cannot find project name \"" + projectName + "\"");
+			script(exports, $global);
+			for (var key in exports) $hx_exports[key] = $hx_exports[key] || exports[key];
+			var lime = exports.lime || window.lime;
+			if (lime && lime.embed && this !== lime.embed) lime.embed.apply(lime, arguments);
+			return exports;
+		};
+	}
+
+	if (typeof define === "function" && define.amd) {
+		define([], function () { return $hx_exports.lime; });
+		define.__amd = define.amd;
+		define.amd = null;
+	}
+})
+
+$lime_init(typeof exports !== "undefined" ? exports : typeof define === "function" && define.amd ? {} : typeof window !== "undefined" ? window : typeof self !== "undefined" ? self : this,
+typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "u
+
+--- lime.embed occurrence 4 @ 10259888 ---
+
+			var exports = {};
+			var script = $hx_exports.lime.$scripts[projectName];
+			if (!script) throw Error("Cannot find project name \"" + projectName + "\"");
+			script(exports, $global);
+			for (var key in exports) $hx_exports[key] = $hx_exports[key] || exports[key];
+			var lime = exports.lime || window.lime;
+			if (lime && lime.embed && this !== lime.embed) lime.embed.apply(lime, arguments);
+			return exports;
+		};
+	}
+
+	if (typeof define === "function" && define.amd) {
+		define([], function () { return $hx_exports.lime; });
+		define.__amd = define.amd;
+		define.amd = null;
+	}
+})
+
+$lime_init(typeof exports !== "undefined" ? exports : typeof define === "function" && define.amd ? {} : typeof window !== "undefined" ? window : typeof self !== "undefined" ? self : this,
+typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : this
+
+--- lime.embed occurrence 5 @ 10259900 ---
+rts = {};
+			var script = $hx_exports.lime.$scripts[projectName];
+			if (!script) throw Error("Cannot find project name \"" + projectName + "\"");
+			script(exports, $global);
+			for (var key in exports) $hx_exports[key] = $hx_exports[key] || exports[key];
+			var lime = exports.lime || window.lime;
+			if (lime && lime.embed && this !== lime.embed) lime.embed.apply(lime, arguments);
+			return exports;
+		};
+	}
+
+	if (typeof define === "function" && define.amd) {
+		define([], function () { return $hx_exports.lime; });
+		define.__amd = define.amd;
+		define.amd = null;
+	}
+})
+
+$lime_init(typeof exports !== "undefined" ? exports : typeof define === "function" && define.amd ? {} : typeof window !== "undefined" ? window : typeof self !== "undefined" ? self : this,
+typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : this);
 
 
-Class lists not properly generated: 1 occurrence(s)
---- Class lists not properly generated occurrence 1, offset 2522726 ---
-dClassList;
+if(type
+
+window.fetch: 0 occurrence(s)
+new URL(: 1 occurrence(s)
+--- new URL( occurrence 1 @ 1810568 ---
+	}
+	lime__$internal_backend_html5_Message.disablePreserveClasses(this);
+};
+$hxClasses["lime._internal.backend.html5.HTML5Thread"] = lime__$internal_backend_html5_HTML5Thread;
+lime__$internal_backend_html5_HTML5Thread.__name__ = "lime._internal.backend.html5.HTML5Thread";
+lime__$internal_backend_html5_HTML5Thread.create = function(job) {
+	var url = new URL(lime__$internal_backend_html5_HTML5Thread.__current.__href);
+	url.pathname = HxOverrides.substr(url.pathname,0,url.pathname.lastIndexOf("/") + 1) + lime_app_Application.current.meta.h["file"] + ".js";
+	if(url.hash.length > 0) {
+		url.hash += "_";
+	}
+	url.hash += lime__$internal_backend_html5_HTML5Thread.__workerCount;
+	lime__$internal_backend_html5_HTML5Thread.__workerCount++;
+	lime__$internal_backend_html5_WorkFunction.makePortable(job);
+	var thread = new lime__$internal_backend_html5_HTML5Thread(url.href,new Worker(url.href));
+	thread
+
+Resource-name occurrences: 2
+--- resource occurrence 1, offset 2523139 ---
+on() { };
+$hxClasses["funkin.util.macro.CompiledClassList"] = funkin_util_macro_CompiledClassList;
 funkin_util_macro_CompiledClassList.__name__ = "funkin.util.macro.CompiledClassList";
 funkin_util_macro_CompiledClassList.init = function() {
 	funkin_util_macro_CompiledClassList.initialized = true;
@@ -718,94 +946,1095 @@ funkin_util_macro_CompiledClassList.get = function(request) {
 		funkin_util_macro_CompiledClassList.init();
 	}
 	if(!Object.prototype.hasOwnProperty.call(funkin_util_macro_CompiledClassList.classLists.h,request)) {
-		haxe_Log.trace(funkin_util_AnsiUtil.apply(funkin_util_AnsiUtil.apply(" WARNING ","\x1B[43m"),"\x1B[1m") + (" Class list " + request + " not properly generated. Please debug the build macro."),{ fileName : "source/funkin/util/macro/CompiledClassList.hx", lineNumber : 79, className : "funkin.util.macro.CompiledClassList", method
-
-
-Type.resolveClass: 0 occurrence(s)
-
-BUILTIN_EVENTS: 3 occurrence(s)
---- BUILTIN_EVENTS occurrence 1, offset 2538478 ---
-e {
-		return output.replace(funkin_util_AnsiUtil.REGEX_ANSI_CODES.r,"");
+		haxe_Log.trace(funkin_util_AnsiUtil.apply(funkin_util_AnsiUtil.apply(" WARNING ","\x1B[43m"),"\x1B[1m") + (" Class list " + request + " not properly generated. Please debug the build macro."),{ fileName : "source/funkin/util/macro/CompiledClassList.hx", lineNumber : 79, className : "funkin.util.macro.CompiledClassList", methodName : "get"});
+		funkin_util_macro_CompiledClassList.classLists.h[request] = new haxe_ds_List();
 	}
+	return funkin_util_macro_CompiledClassList.classLists.h[request];
 };
-var funkin_data_event_SongEventRegistry = function() { };
-$hxClasses["funkin.data.event.SongEventRegistry"] = funkin_data_event_SongEventRegistry;
-funkin_data_event_SongEventRegistry.__name__ = "funkin.data.event.SongEventRegistry";
-funkin_data_event_SongEventRegistry.loadEventCache = function() {
-	funkin_data_event_SongEventRegistry.clearEventCache();
-	funkin_data_event_SongEventRegistry.registerBaseEvents();
-	funkin_data_event_SongEventRegistry.registerScriptedEvents();
-};
-funkin_data_event_SongEventRegistry.registerBaseEvents = function() {
-	haxe_Log.trace("Instantiating " + funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.length + " built-in song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 43, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
-		}
-		var event = Type.createInstance(eventCls,["UNKNOWN"]);
-		if(event != null) {
-			haxe_Log.trace(" Loaded built-in song event: " + event.id,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 53, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-			funkin_data_event_SongEventRegistry.eventCache.h[event.id] = event;
-		} else {
-			haxe_Log.trace(" Failed to load built-in song event: " + eventCls.__name__,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 58,
-
---- BUILTIN_EVENTS occurrence 2, offset 2538747 ---
-_ = "funkin.data.event.SongEventRegistry";
-funkin_data_event_SongEventRegistry.loadEventCache = function() {
-	funkin_data_event_SongEventRegistry.clearEventCache();
-	funkin_data_event_SongEventRegistry.registerBaseEvents();
-	funkin_data_event_SongEventRegistry.registerScriptedEvents();
-};
-funkin_data_event_SongEventRegistry.registerBaseEvents = function() {
-	haxe_Log.trace("Instantiating " + funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.length + " built-in song events...",{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 43, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-	var _g_head = funkin_data_event_SongEventRegistry.BUILTIN_EVENTS.h;
-	while(_g_head != null) {
-		var val = _g_head.item;
-		_g_head = _g_head.next;
-		var eventCls = val;
-		var eventClsName = eventCls.__name__;
-		if(eventClsName == "funkin.play.event.SongEvent" || eventClsName == "funkin.play.event.ScriptedSongEvent") {
-			continue;
-		}
-		var event = Type.createInstance(eventCls,["UNKNOWN"]);
-		if(event != null) {
-			haxe_Log.trace(" Loaded built-in song event: " + event.id,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 53, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
-			funkin_data_event_SongEventRegistry.eventCache.h[event.id] = event;
-		} else {
-			haxe_Log.trace(" Failed to load built-in song event: " + eventCls.__name__,{ fileName : "source/funkin/data/event/SongEventRegistry.hx", lineNumber : 58, className : "funkin.data.event.SongEventRegistry", methodName : "registerBaseEvents"});
+var haxe_Resource = function() { };
+$hxClasses["haxe.Resource"] = haxe_Resource;
+haxe_Resource.__name__ = "haxe.Resource";
+haxe_Resource.content = null;
+haxe_Resource.getString = function(name) {
+	var _g = 0;
+	var _g1 = haxe_Resource.content;
+	while(_g < _g1.length) {
+		var x = _g1[_g];
+		++_g;
+		if(x.name == name) {
+			if(x.str != null) {
+				return x.str;
+			}
+			return haxe_crypto_Base64.decode(x.data).toString();
 		}
 	}
+	return null;
 };
-funkin_data_event_SongEventRegistry.registerScriptedEvents = function() {
-	var scriptedEventClassNames = funkin_play_event_ScriptedSongEvent.listScriptClasses();
-	haxe_Lo
+haxe_Resource.getBytes = function(name) {
+	var _g = 0;
+	var _g1 = haxe_Resource.content;
+	while(_g < _g1.length) {
+		var x = _g1[_g];
+		++_g;
+		if(x.name == name) {
+			if(x.str != null) {
+				return haxe_io_Bytes.ofString(x.str);
+			}
+			return haxe_crypto_Base64.decode(x.data);
+		}
+	}
+	return null;
+};
+var haxe_io_Encoding = $hxEnums["haxe.io.Encoding"] = { __ename__:"haxe.io.Encoding",__constructs__:null
+	,UTF8: {_hx_name:"UTF8",_hx_index:0,__enum__:"haxe.io.Encoding",toString:$estr}
+	,RawNative: {_hx_name:"RawNative",_hx_index:1,__enum__:"haxe.io.Encoding",toString:$estr}
+};
+haxe_io_Encoding.__constructs__ = [haxe_io_Encoding.UTF8,haxe_io_Encoding.RawNative];
+haxe_io_Encoding.__empty_constructs__ = [haxe_io_Encoding.UTF8,haxe_io_Encoding.RawNative];
+var haxe_crypto_Base64 = function() { };
+$hxClasses["haxe.crypto.Base64"] = haxe_crypto_Base64;
+haxe_crypto_Base64.__name__ = "haxe.crypto.Base64";
+haxe_crypto_Base64.encode = function(bytes,complement) {
+	if(complement == null) {
+		complement = true;
+	}
+	var str = new haxe_crypto_BaseCode(haxe_crypto_Base64.BYTES).encodeBytes(bytes).toString();
+	if(complement) {
+		switch(bytes.length % 3) {
+		case 1:
+			str += "==";
+			break;
+		case 2:
+			str += "=";
+			break;
+		default:
+		}
+	}
+	return str;
+};
+haxe_crypto_Base64.decode = function(str,complement) {
+	if(complement == null) {
+		complement = true;
+	}
+	if(complement) {
+		while(HxOverrides.cca(str,str.length - 1) == 61) str = HxOverrides.substr(str,0,-1);
+	}
+	return new haxe_crypto_BaseCode(haxe_crypto_Base64.BYTES).decodeBytes(haxe_io_Bytes.ofString(str));
+};
+var haxe_crypto_BaseCode = function(base) {
+	var len = base.length;
+	var nbits = 1;
+	while(len > 1 << nbits) ++nbits;
+	if(nbits > 8 || len != 1 << nbits) {
+		throw haxe_Exception.thrown("BaseCode : base length must be a power of two.");
+	}
+	this.base = base;
+	this.nbits = nbits;
+};
+$hxClasses["haxe.crypto.BaseCode"] = haxe_crypto_BaseCode;
+haxe_crypto_BaseCode.__name__ = "haxe.crypto.BaseCode";
+haxe_crypto_BaseCode.prototype = {
+	base: null
+	,nbits: null
+	,tbl: null
+	,encodeBytes: function(b) {
+		var nbits = this.nbits;
+		var base = this.base;
+		var size = b.length * 8 / nbits | 0;
+		var out = new haxe_io_Bytes(new ArrayBuffer(size + (b.length * 8 % nbits == 0 ? 0 : 1)));
+		var buf = 0;
+		var curbits = 0;
+		var mask = (1 << nbits) - 1;
+		var pin = 0;
+		var pout = 0;
+		while(pout < size) {
+			while(curbits < nbits) {
+				curbits += 8;
+				buf <<= 8;
+				buf |= b.b[pin++];
+			}
+			curbits -= nbits;
+			out.b[pout++] = base.b[buf >> curbits & mask];
+		}
+		if(curbits > 0) {
+			out.b[pout++] = base.b[buf << nbits - curbits & mask];
+		}
+		return out;
+	}
+	,initTable: function() {
+		var tbl = [];
+		var _g = 0;
+		while(_g < 256) tbl[_g++] = -1;
+		var _g = 0;
+		var _g1 = this.base.length;
+		while(_g < _g1) {
+			var i = _g++;
+			tbl[this.base.b[i]] = i;
+		}
+		this.tbl = tbl;
+	}
+	,decodeBytes: function(b) {
+		var nbits = this.nbits;
+		if(this.tbl == null) {
+			this.initTable();
+		}
+		var tbl = this.tbl;
+		var size = b.length * nbits >> 3;
+		var out = new haxe_io_Bytes(new ArrayBuffer(size));
+		var buf = 0;
+		var curbits = 0;
+		var pin = 0;
+		var pout = 0;
+		while(pout < size) {
+			while(curbits < 8) {
+				curbits += nbits;
+				buf <<= nbits;
+				var i = tbl[b.b[pin++]];
+				if(i == -1) {
+					throw haxe_Exception.thrown("BaseCode : invalid encoded char");
+				}
+				buf |= i;
+			}
+			curbits -= 8;
+			out.b[pout++] = buf >> curbits & 255;
+		}
+		return out;
+	}
+	,__class__: haxe_crypto_BaseCode
+};
+var haxe__$Unserializer_DefaultResolver = function() {
+};
+$hxClasses["haxe._Unserializer.DefaultResolver"] = haxe__$Unserializer_DefaultResolver;
+haxe__$Unserializer_DefaultResolver.__name__ = "haxe._Unserializer.DefaultResolver";
+haxe__$Unserializer_DefaultResolver.prototype = {
+	resolveClass: function(name) {
+		return $hxClasses[name];
+	}
+	,resolveEnum: function(name) {
+		return $hxEnums[name];
+	}
+	,__class__: haxe__$Unserializer_DefaultResolver
+};
+var haxe_Unserializer = function(buf) {
+	this.buf = buf;
+	this.length = this.buf.length;
+	this.pos = 0;
+	this.scache = [];
+	this.cache = [];
+	var r = haxe_Unserializer.DEFAULT_RESOLVER;
+	if(r == null) {
+		r = new haxe__$Unserializer_DefaultResolver();
+		haxe_Unserializer.DEFAULT_RESOLVER = r;
+	}
+	this.resolver = r;
+};
+$hxClasses["haxe.Unserializer"] = haxe_Unserializer;
+haxe_Unserializer.__name__ = "haxe.Unserializer";
+haxe_Unserializer.initCodes = function() {
+	var codes = [];
+	var _g = 0;
+	var _g1 = haxe_Unserializer.BASE64.length;
+	while(_g < _g1) {
+		var i = _g++;
+		codes[haxe_Unserializer.BASE64.charCodeAt(i)] = i;
+	}
+	return codes;
+};
+haxe_Unserializer.run = function(v) {
+	return new haxe_Unserializer(v).unserialize();
+};
+haxe_Unserializer.prototype = {
+	buf: null
+	,pos: null
+	,length: null
+	,cache: null
+	,scache: null
+	,resolver: null
+	,readDigits: function() {
+		var k = 0;
+		var s = false;
+		var fpos = this.pos;
+		while(true) {
+			var c = this.buf.charCodeAt(this.pos);
+			if(c != c) {
+				break;
+			}
+			if(c == 45) {
+				if(this.pos != fpos) {
+					break;
+				}
+				s = true;
+				this.pos++;
+				continue;
+			}
+			if(c < 48 || c > 57) {
+				break;
+			}
+			k = k * 10 + (c - 48);
+			this.pos++;
+		}
+		if(s) {
+			k *= -1;
+		}
+		return k;
+	}
+	,readFloat: function() {
+		var p1 = this.pos;
+		while(true) {
+			var c = this.buf.charCodeAt(this.pos);
+			if(c != c) {
+				break;
+			}
+			if(c >= 43 && c < 58 || c == 101 || c == 69) {
+				this.pos++;
+			} else {
+				break;
+			}
+		}
+		return parseFloat(HxOverrides.substr(this.buf,p1,this.pos - p1));
+	}
+	,unserializeObject: function(o) {
+		while(true) {
+			if(this.pos >= this.length) {
+				throw haxe_Exception.thrown("Invalid object");
+			}
+			if(this.buf.charCodeAt(this.pos) == 103) {
+				break;
+			}
+			var k = this.unserialize();
+			if(typeof(k) != "string") {
+				throw haxe_Exception.thrown("Invalid object key");
+			}
+			o[k] = this.unserialize();
+		}
+		this.pos++;
+	}
+	,unserializeEnum: function(edecl,tag) {
+		if(this.buf.charCodeAt(this.pos++) != 58) {
+			throw haxe_Exception.thrown("Invalid enum format");
+		}
+		var nargs = this.readDigits();
+		if(nargs == 0) {
+			return Type.createEnum(edecl,tag);
+		}
+		var args = [];
+		while(nargs-- > 0) args.push(this.unserialize());
+		return Type.createEnum(edecl,tag,args);
+	}
+	,unserialize: function() {
+		switch(this.buf.charCodeAt(this.pos++)) {
+		case 65:
+			var name = this.unserialize();
+			var cl = this.resolver.resolveClass(name);
+			if(cl == null) {
+				throw haxe_Exception.thrown("Class not found " + name);
+			}
+			return cl;
+		case 66:
+			var name = this.unserialize();
+			var e = this.resolver.resolveEnum(name);
+			if(e == null) {
+				throw haxe_Exception.thrown("Enum not found " + name);
+			}
+			return e;
+		case 67:
+			var name = this.unserialize();
+			var cl = this.resolver.resolveClass(name);
+			if(cl == null) {
+				throw haxe_Exception.thrown("Class not found " + name);
+			}
+			var o = Object.create(cl.prototype);
+			this.cache.push(o);
+			o.hxUnserialize(this);
+			if(this.buf.charCodeAt(this.pos++) != 103) {
+				throw haxe_Exception.thrown("Invalid custom data");
+			}
+			return o;
+		case 77:
+			var h = new haxe_ds_ObjectMap();
+			this.cache.push(h);
+			while(this.buf.charCodeAt(this.pos) != 104) h.set(this.unserialize(),this.unserialize());
+			this.pos++;
+			return h;
+		case 82:
+			var n = this.readDigits();
+			if(n < 0 || n >= this.scache.length) {
+				throw haxe_Exception.thrown("Invalid string reference");
+			}
+			return this.scache[n];
+		case 97:
+			var a = [];
+			this.cache.push(a);
+			while(true) {
+				var c = this.buf.charCodeAt(this.pos);
+				if(c == 104) {
+					this.pos++;
+					break;
+				}
+				if(c == 117) {
+					this.pos++;
+					var n = this.readDigits();
+					a[a.length + n 
 
---- BUILTIN_EVENTS occurrence 3, offset 10195171 ---
-dClassList._metadata = null;
-haxe_crypto_Base64.CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-haxe_crypto_Base64.BYTES = haxe_io_Bytes.ofString(haxe_crypto_Base64.CHARS);
-haxe_Unserializer.DEFAULT_RESOLVER = new haxe__$Unserializer_DefaultResolver();
-haxe_Unserializer.BASE64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789%:";
-haxe_Unserializer.CODES = null;
-funkin_util_AnsiUtil.__meta__ = { statics : { isColorCodesSupported : { SuppressWarnings : [["checkstyle:SimplifyBooleanExpression"]]}}};
-funkin_util_AnsiUtil.REGEX_ANSI_CODES = new EReg("\\x1b\\[[0-9;]*m","g");
-funkin_util_AnsiUtil.codesSupported = null;
-funkin_data_event_SongEventRegistry.BUILTIN_EVENTS = funkin_util_macro_CompiledClassList.get("extend~funkin.play.event.SongEvent");
-funkin_data_event_SongEventRegistry.eventCache = new haxe_ds_StringMap();
-funkin_data_event_SongEventRegistry.nextEventIndex = 0;
-funkin_data_event_SongEventRegistry.allEventHandlers = [];
-funkin_data_freeplay_album_AlbumRegistry.ALBUM_DATA_VERSION_RULE = thx_semver_VersionRule.stringToVersionRule("1.0.x");
-funkin_data_freeplay_player_PlayerRegistry.PLAYER_DATA_VERSION = thx_semver_Version.stringToVersion("1.0.0");
-funkin_data_freeplay_player_PlayerRegistry.PLAYER_DATA_VERSION_RULE = thx_semver_VersionRule.stringToVersionRule("1.0.x");
-funkin_data_freeplay_style_FreeplayStyleRegistry.FREEPLAYSTYLE_DATA_VERSION_RULE = thx_semver_VersionRule.stringToVersionRule("1.0.x");
-funkin_data_notestyle_NoteStyleRegistry.NOTE_STYLE_DATA_VERSION = thx_semver_Version.stringToVersion("1.1.0");
-funkin_data_notestyle_NoteStyleRegistry.NOTE_STYLE_DATA_VERSION_RULE = thx_semver_VersionRule.stringToVersionRule(">=1.0.0 <1.2.0");
-funkin_data_song_SongTimeChange.DEFAULT_BEAT_TUPLETS = [4,4,4,4];
-funkin_data_song
+--- resource occurrence 2, offset 9751670 ---
+YlJuMEo1QmV3YnRHYlJuMEo1QmV3YnRHYlJuMEo1QmV3YnRHYlJuMEo1QmV3YnRHYlJuMEo1QmV3YnRHYlJuMEo1QmV3YnRHYlJuMEo1QmV3YnRHYlJuMEo1QmV3YnRHYlJuMEo1QmV3YnRHYlJuMEo1QmV3YnRHYlJuMEo1QmV3YnRHYlJuMEo1QmV3YnRHYlJuMEo1QmV3YnRHUjlPdmlJQWJIVmpCd0FBQUFCSlJVNUVya0pnZ2c9PQ"},{ name : "__ASSET__:bitmap_flixel_input_mouse__FlxMouse_GraphicCursor", data : "aVZCT1J3MEtHZ29BQUFBTlNVaEVVZ0FBQUJnQUFBQWdDQVlBQUFBSVhyZzRBQUFCcFVsRVFWUjQyclRSQTVLRFFSQUY0QnhnYmR1MjdUM0RvckMyelR1dGJkdTJiYU5qZFp4TVh0VXJ6WFIvUHlqYUpzYU5GQ1dHRGdCNUJBSGtFUVJvR1JzaGhEQ2dZV2lJRVNVQVJvemxDQ0VJcEJlVVFtQkVCRUVFQWNXMXpUQzlzQW8rSWNFRUVRVDBUU3pCNmZrNWVBVUdFa0lRMERvd0F5ZVh0M0J5ZWdydS9uNWtFQXdNejZ3QlBmc0hCK0RpNDQwUUFnQzlkdy9QREdSbmR4Y2NQVDBRUWdDWVdka0JkamEzdDhETzNVMStCQVBzdnJ4OUFEdHJHeHRnNCtLTUVjV0E1YTFENE0zaThoSllPanBnUkg2Z1kzZ092cjUvK0pDNWhRWFpFUXp3ZHZ2Z0RIQW1wcWZBMk1ZYUkvSUIzV01MOFB2M0J6aGpFeFBTSXhqQVBUcS9CbUVaR0I0Q1Ewc0xqTWdPREU2dmdLaDA5L1pLUUNRQXlSbDU0T1lmQkNFeHNSQ1ZtQ2kwN0orT0VZbEFhbVlCcU9ycU1hcHBhSWlXU0d5aldDQ3pxSkt4V0UxUEQ3U01qR1JiamhFTUZGUTFNSmFyNnh1d0wvYlI2aTFucVdORHNhQzBvUTA5U0xZRE1TZFY2Z05iVncrZ3dWTElsZjlHa0F1b1ZhTUJzUVJ5K0swR0dVN2xoaGVtNGJTd1lDa1FNOU9xNlRnZlpqZ3RMSmhKeThidlpBWWFBZ0JJUDV2ZHJxV1ZzQUFBQUFCSlJVNUVya0pnZ2c9PQ"},{ name : "Funkin_CompiledClassList", data : "YWF5NDA6cGFja2FnZSU3RWZ1bmtpbi5tb2JpbGUudXRpbCU3RXJlY3Vyc2l2ZXkyOTpmdW5raW4ubW9iaWxlLnV0aWwuU2NyZWVuVXRpbGhheTMxOnBhY2thZ2UlN0VleHRlbnNpb24lN0VyZWN1cnNpdmVoYXkzMjpwYWNrYWdlJTdFZnVua2luLmFwaSU3RXJlY3Vyc2l2ZXk0MTpmdW5raW4uYXBpLmRpc2NvcmQuRGlzY29yZENsaWVudFNhbmRib3hlZHkyODpmdW5raW4uYXBpLm5ld2dyb3VuZHMuRXZlbnRzeTM0OmZ1bmtpbi5hcGkubmV3Z3JvdW5kcy5MZWFkZXJib2FyZHN5NDM6ZnVua2luLmFwaS5uZXdncm91bmRzLkxlYWRlcmJvYXJkc1NhbmRib3hlZHk1MzpmdW5raW4uYXBpLm5ld2dyb3VuZHMuX0xlYWRlcmJvYXJkcy5MZWFkZXJib2FyZF9JbXBsX3kyODpmdW5raW4uYXBpLm5ld2dyb3VuZHMuTWVkYWxzeTM3OmZ1bmtpbi5hcGkubmV3Z3JvdW5kcy5NZWRhbHNTYW5kYm94ZWR5NDE6ZnVua2luLmFwaS5uZXdncm91bmRzLl9NZWRhbHMuTWVkYWxfSW1wbF95MzI6ZnVua2luLmFwaS5uZXdncm91bmRzLk5HU2F2ZVNsb3R5Mzg6ZnVua2luLmFwaS5uZXdncm91bmRzLk5ld2dyb3VuZHNDbGllbnR5NDc6ZnVua2luLmFwaS5uZXdncm91bmRzLk5ld2dyb3VuZHNDbGllbnRTYW5kYm94ZWR5MzA6ZnVua2luLmFwaS5uZXdncm91bmRzLlJlZmVycmFsaGF5Mjk6cGFja2FnZSU3RXBvbHltb2QlN0VyZWN1cnNpdmV5MzI6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5JbnRlcnB5NDQ6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5Qb2x5bW9kU2NyaXB0Q2xhc3N5MzM6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5QcmludGVyeTE1OnBvbHltb2QuUG9seW1vZHkyMDpwb2x5bW9kLlBvbHltb2RFcnJvcnk1Mzpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLlBvbHltb2RTdGF0aWNDbGFzc1JlZmVyZW5jZXkxOTpwb2x5bW9kLk1vZE1ldGFkYXRheTQxOnBvbHltb2QuX1BvbHltb2QuUG9seW1vZEVycm9yT3JpZ2luX0ltcGxfeTM5OnBvbHltb2QuX1BvbHltb2QuUG9seW1vZEVycm9yQ29kZV9JbXBsX3kyMTpwb2x5bW9kLlBvbHltb2RDb25maWd5Mjg6cG9seW1vZC5iYWNrZW5kcy5TdHViQmFja2VuZHkzMDpwb2x5bW9kLmJhY2tlbmRzLkNhc3RsZUJhY2tlbmR5MzE6cG9seW1vZC5iYWNrZW5kcy5DZXJhbWljQmFja2VuZHkyODpwb2x5bW9kLmJhY2tlbmRzLkxpbWVCYWNrZW5keTMwOnBvbHltb2QuYmFja2VuZHMuT3BlbkZMQmFja2VuZHkzMDpwb2x5bW9kLmJhY2tlbmRzLkZsaXhlbEJhY2tlbmR5Mjk6cG9seW1vZC5iYWNrZW5kcy5IRUFQU0JhY2tlbmR5Mjc6cG9seW1vZC5iYWNrZW5kcy5LaGFCYWNrZW5keTMxOnBvbHltb2QuYmFja2VuZHMuTGltZU1vZExpYnJhcnl5MzM6cG9seW1vZC5iYWNrZW5kcy5MaW1lQXN5bmNIYW5kbGVyeTMyOnBvbHltb2QuYmFja2VuZHMuTGltZUNvcmVMaWJyYXJ5eTQyOnBvbHltb2QuYmFja2VuZHMuX0xpbWVCYWNrZW5kLklkQW5kTGlicmFyeXkyNzpwb2x5bW9kLmJhY2tlbmRzLk5NRUJhY2tlbmR5Mzg6cG9seW1vZC5iYWNrZW5kcy5PcGVuRkxXaXRoTm9kZUJhY2tlbmR5MzY6cG9seW1vZC5iYWNrZW5kcy5Qb2x5bW9kQXNzZXRMaWJyYXJ5eTMwOnBvbHltb2QuYmFja2VuZHMuUG9seW1vZEFzc2V0c3k1NDpwb2x5bW9kLmJhY2tlbmRzLl9Qb2x5bW9kQXNzZXRzLlBvbHltb2RBc3NldFR5cGVfSW1wbF95MTg6cG9seW1vZC5mb3JtYXQuQ1NWeTIzOnBvbHltb2QuZm9ybWF0Lkpzb25IZWxweTI1OnBvbHltb2QuZm9ybWF0LlBhcnNlUnVsZXN5Mjk6cG9seW1vZC5mb3JtYXQuQ1NWUGFyc2VGb3JtYXR5Mjk6cG9seW1vZC5mb3JtYXQuVFNWUGFyc2VGb3JtYXR5MzE6cG9seW1vZC5mb3JtYXQuTGluZXNQYXJzZUZvcm1hdHkyOTpwb2x5bW9kLmZvcm1hdC5YTUxQYXJzZUZvcm1hdHkzMDpwb2x5bW9kLmZvcm1hdC5KU09OUGFyc2VGb3JtYXR5MzU6cG9seW1vZC5mb3JtYXQuUGxhaW5UZXh0UGFyc2VGb3JtYXR5MzI6cG9seW1vZC5mb3JtYXQuU2NyaXB0UGFyc2VGb3JtYXR5MTg6cG9seW1vZC5mb3JtYXQuVFNWeTIzOnBvbHltb2QuZm9ybWF0LlhNTE1lcmdleTI3OnBvbHltb2QuZnMuTWVtb3J5RmlsZVN5c3RlbXkzMDpwb2x5bW9kLmZzLk1lbW9yeVppcEZpbGVTeXN0ZW15Mjg6cG9seW1vZC5mcy5Qb2x5bW9kRmlsZVN5c3RlbXkyNTpwb2x5bW9kLmZzLlN0dWJGaWxlU3lzdGVteTI5OnBvbHltb2QuaHNjcmlwdC5IU2NyaXB0UGFyYW1zeTI4OnBvbHltb2QuaHNjcmlwdC5TY3JpcHRSdW5uZXJ5MjI6cG9seW1vZC5oc2NyaXB0LlNjcmlwdHkzMTpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLkVycm9yeTQ3OnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX0ludGVycC5BcnJheUl0ZXJhdG9yeTMyOnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuUGFyc2VyeTg2OnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX1BvbHltb2RBYnN0cmFjdFNjcmlwdENsYXNzLlBvbHltb2RBYnN0cmFjdFNjcmlwdENsYXNzX0ltcGxfeTM3OnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuUG9seW1vZEVudW15NDM6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5Qb2x5bW9kRmluYWxNYWNyb3k0OTpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLlBvbHltb2RTY3JpcHRDbGFzc01hY3JveTU2OnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuUG9seW1vZFN0YXRpY0Fic3RyYWN0UmVmZXJlbmNleTMxOnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuVG9vbHN5NTI6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5fYWJzdHJhY3QuQW55X1BvbHltb2RJbXBsX3k1Mzpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLl9hYnN0cmFjdC5VSW50X1BvbHltb2RJbXBsX3k2Mjpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLl9hYnN0cmFjdC5Vbmljb2RlU3RyaW5nX1BvbHltb2RJbXBsX3k1Njpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLl9hYnN0cmFjdC5YbWxUeXBlX1BvbHltb2RJbXBsX3k2Nzpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLl9hYnN0cmFjdC5hbmltYXRlLkZpbHRlckpzb25fUG9seW1vZEltcGxfeTcwOnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmFuaW1hdGUuRmlsdGVyUXVhbGl0eV9Qb2x5bW9kSW1wbF95Njc6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5fYWJzdHJhY3QuYW5pbWF0ZS5NYXRyaXhKc29uX1BvbHltb2RJbXBsX3k3NTpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLl9hYnN0cmFjdC5hbmltYXRlLlN5bWJvbEluc3RhbmNlSnNvbl9Qb2x5bW9kSW1wbF95NzU6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5fYWJzdHJhY3QuYW5pbWF0ZS5pbnRlcm5hbC5MYXllclR5cGVfUG9seW1vZEltcGxfeTg2OnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmFuaW1hdGUuaW50ZXJuYWwuZWxlbWVudHMuQnV0dG9uU3RhdGVfUG9seW1vZEltcGxfeTg2OnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmFuaW1hdGUuaW50ZXJuYWwuZWxlbWVudHMuRWxlbWVudFR5cGVfUG9seW1vZEltcGxfeTgzOnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmFuaW1hdGUuaW50ZXJuYWwuZWxlbWVudHMuTG9vcFR5cGVfUG9seW1vZEltcGxfeTczOnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmZsaXhlbC5Db2xsaXNpb25EcmFnVHlwZV9Qb2x5bW9kSW1wbF95NjM6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5fYWJzdHJhY3QuZmxpeGVsLkZseFR5cGVfUG9seW1vZEltcGxfeTg5OnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmZsaXhlbC5hZGRvbnMuZWRpdG9ycy5wZXguUGV4RW1pdHRlclR5cGVfUG9seW1vZEltcGxfeTkwOnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmZsaXhlbC5hZGRvbnMudHJhbnNpdGlvbi5UcmFuc2l0aW9uU3RhdHVzX1BvbHltb2RJbXBsX3k4ODpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLl9hYnN0cmFjdC5mbGl4ZWwuYWRkb25zLnRyYW5zaXRpb24uVHJhbnNpdGlvblR5cGVfUG9seW1vZEltcGxfeTkxOnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmZsaXhlbC5ncmFwaGljcy5hdGxhcy5Bc2VBdGxhc1RhZ0RpcmVjdGlvbl9Qb2x5bW9kSW1wbF95ODg6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5fYWJzdHJhY3QuZmxpeGVsLmdyYXBoaWNzLmF0bGFzLkFzZUF0bGFzVGFnUmVwZWF0X1BvbHltb2RJbXBsX3k4Mzpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLl9hYnN0cmFjdC5mbGl4ZWwuZ3JhcGhpY3MuYXRsYXMuQXNlQmxlbmRNb2RlX1BvbHltb2RJbXBsX3k4NTpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLl9hYnN0cmFjdC5mbGl4ZWwuZ3JhcGhpY3MuZnJhbWVzLkZseEZyYW1lQW5nbGVfUG9seW1vZEltcGxfeTg0OnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmZsaXhlbC5ncmFwaGljcy5mcmFtZXMuRmx4RnJhbWVUeXBlX1BvbHltb2RJbXBsX3k4MTpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLl9hYnN0cmFjdC5mbGl4ZWwuZ3JhcGhpY3MuZnJhbWVzLkZseFVWUmVjdF9Qb2x5bW9kSW1wbF95ODQ6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5fYWJzdHJhY3QuZmxpeGVsLmdyYXBoaWNzLmZyYW1lcy5NYXRyaXhWZWN0b3JfUG9seW1vZEltcGxfeTg4OnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmZsaXhlbC5ncmFwaGljcy5mcmFtZXMuYm1mb250LkJNRm9udFhtbF9Qb2x5bW9kSW1wbF95OTI6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5fYWJzdHJhY3QuZmxpeGVsLmdyYXBoaWNzLmZyYW1lcy5ibWZvbnQuQk1Gb250QmxvY2tJZF9Qb2x5bW9kSW1wbF95NzU6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5fYWJzdHJhY3QuZmxpeGVsLmlucHV0LkZseElucHV0U3RhdGVfUG9seW1vZEltcGxfeTgzOnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmZsaXhlbC5pbnB1dC5hY3Rpb25zLkZseEFuYWxvZ0F4aXNfUG9seW1vZEltcGxfeTg0OnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmZsaXhlbC5pbnB1dC5hY3Rpb25zLkZseEFuYWxvZ1N0YXRlX1BvbHltb2RJbXBsX3k4Njpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLl9hYnN0cmFjdC5mbGl4ZWwuaW5wdXQuYWN0aW9ucy5GbHhJbnB1dERldmljZUlEX1BvbHltb2RJbXBsX3k4Nzpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLl9hYnN0cmFjdC5mbGl4ZWwuaW5wdXQuZ2FtZXBhZC5GbHhHYW1lcGFkSW5wdXRJRF9Qb2x5bW9kSW1wbF95ODM6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5fYWJzdHJhY3QuZmxpeGVsLmlucHV0LmdhbWVwYWQuaWQuTG9naXRlY2hJRF9Qb2x5bW9kSW1wbF95Nzg6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5fYWJzdHJhY3QuZmxpeGVsLmlucHV0LmdhbWVwYWQuaWQuTUZpSURfUG9seW1vZEltcGxfeTkyOnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmZsaXhlbC5pbnB1dC5nYW1lcGFkLmlkLk1heWZsYXNoV2lpUmVtb3RlSURfUG9seW1vZEltcGxfeTc5OnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmZsaXhlbC5pbnB1dC5nYW1lcGFkLmlkLk9VWUFJRF9Qb2x5bW9kSW1wbF95Nzg6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5fYWJzdHJhY3QuZmxpeGVsLmlucHV0LmdhbWVwYWQuaWQuUFM0SURfUG9seW1vZEltcGxfeTgxOnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmZsaXhlbC5pbnB1dC5nYW1lcGFkLmlkLlBTVml0YUlEX1BvbHltb2RJbXBsX3k5MTpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLl9hYnN0cmFjdC5mbGl4ZWwuaW5wdXQuZ2FtZXBhZC5pZC5Td2l0Y2hKb3ljb25MZWZ0SURfUG9seW1vZEltcGxfeTkyOnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmZsaXhlbC5pbnB1dC5nYW1lcGFkLmlkLlN3aXRjaEpveWNvblJpZ2h0SURfUG9seW1vZEltcGxfeTg0OnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmZsaXhlbC5pbnB1dC5nYW1lcGFkLmlkLlN3aXRjaFByb0lEX1BvbHltb2RJbXBsX3k4NDpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLl9hYnN0cmFjdC5mbGl4ZWwuaW5wdXQuZ2FtZXBhZC5pZC5XaWlSZW1vdGVJRF9Qb2x5bW9kSW1wbF95ODE6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5fYWJzdHJhY3QuZmxpeGVsLmlucHV0LmdhbWVwYWQuaWQuWElucHV0SURfUG9seW1vZEltcGxfeTc3OnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmZsaXhlbC5pbnB1dC5rZXlib2FyZC5GbHhLZXlfUG9seW1vZEltcGxfeTg0OnBvbHltb2QuaHNjcmlwdC5faW50ZXJuYWwuX2Fic3RyYWN0LmZsaXhlbC5pbnB1dC5tb3VzZS5GbHhNb3VzZUJ1dHRvbklEX1BvbHltb2RJbXBsX3k2OTpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLl9hYnN0cmFjdC5mbGl4ZWwubWF0aC5GbHhQb2ludF9Qb2x5bW9kSW1wbF95Nzc6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5fYWJzdHJhY3QuZmxpeGVsLm1hdGguRmx4UmVhZE9ubHlQb2ludF9Qb2x5bW9kSW1wbF95NzY6cG9seW1vZC5oc2NyaXB0Ll9pbnRlcm5hbC5fYWJzdHJhY3QuZmxpeGVsLm1hdGguRmx4UmVhZE9ubHlSZWN0X1BvbHltb2RJbXBsX3k3Nzpwb2x5bW9kLmhzY3JpcHQuX2ludGVybmFsLl9hYnN0cmFjdC5mbGl4ZWwucGF0aC5GbHhQYXRoRGlyZWN0aW9uX1BvbHltb2RJbXBsX3k3Njpwb2x5bW9kLmhzY3Jpc
 
+Event class names mentioned: 3
+REGISTERED: funkin.play.event.ScriptedSongEvent
+REGISTERED: funkin.play.event.SongEvent
+REGISTERED: funkin.play.event.SongEventHelper
+
+Runtime URL/renderer code references:
+document.currentScript: 0 occurrence(s)
+document.scripts: 0 occurrence(s)
+document.baseURI: 0 occurrence(s)
+location.href: 8 occurrence(s)
+--- location.href occurrence 1 @ 1756337 ---
+xt.get_height() + hyperlinkText.get_height());
+		sprite.addChild(titleText);
+		sprite.addChild(bodyText);
+		sprite.addChild(hyperlinkText);
+		return sprite;
+	}
+	,adjustSiteLockTextFields: function(titleText,bodyText,hyperlinkText) {
+	}
+	,isHostUrlAllowed: function() {
+		if(this.allowedURLs.length == 0) {
+			return true;
+		}
+		var homeURL = $global.location.href;
+		var homeDomain = flixel_util_FlxStringUtil.getDomain(homeURL);
+		var _g = 0;
+		var _g1 = this.allowedURLs;
+		while(_g < _g1.length) if(flixel_util_FlxStringUtil.getDomain(_g1[_g++]) == homeDomain) {
+			return true;
+		}
+		return false;
+	}
+	,__class__: flixel_system_FlxBasePreloader
+});
+var flixel_system_FlxLinkedList = function() {
+	this.exists = true;
+};
+$hxClasses["flixel.system.FlxLinkedList"] = flixel_system_FlxLinkedList;
+flixel_system_FlxLinkedList.__name__ = "flixel.system.FlxLinkedList";
+flixel_system_FlxLinkedList.__interfaces__ = [flixel_util_IFlxDestroyable];
+flixel_system_FlxLinkedList._cachedListsHead = null;
+flix
+
+--- location.href occurrence 2 @ 2202522 ---
+turn storage.getItem(path + ":" + name);
+	};
+	if(localPath != "") {
+		return get(localPath);
+	}
+	var encodedData = get(flixel_util__$FlxSave_FlxSharedObject.getDefaultLocalPath());
+	if(encodedData != null) {
+		return encodedData;
+	}
+	encodedData = get(window.location.pathname);
+	if(encodedData != null) {
+		return encodedData;
+	}
+	return get(window.location.href);
+};
+flixel_util__$FlxSave_FlxSharedObject.__super__ = openfl_net_SharedObject;
+flixel_util__$FlxSave_FlxSharedObject.prototype = $extend(openfl_net_SharedObject.prototype,{
+	__class__: flixel_util__$FlxSave_FlxSharedObject
+});
+var flixel_util_LoadResult = $hxEnums["flixel.util.LoadResult"] = { __ename__:"flixel.util.LoadResult",__constructs__:null
+	,SUCCESS: ($_=function(obj) { return {_hx_index:0,obj:obj,__enum__:"flixel.util.LoadResult",toString:$estr}; },$_._hx_name="SUCCESS",$_.__params__ = ["obj"],$_)
+	,FAILURE: ($_=function(type,obj) { return {_hx_index:1,type:type,obj:obj,__enum__:"flixel.util.LoadResult",toString:$estr}
+
+--- location.href occurrence 3 @ 7503419 ---
+ar _this = function(outcome) {
+			_g.checkInitialSession(callback1,outcome);
+		};
+		this.calls.app.checkSession().addOutcomeHandler(_this).sendHelper();
+	}
+};
+$hxClasses["io.newgrounds.NGLite"] = io_newgrounds_NGLite;
+io_newgrounds_NGLite.__name__ = "io.newgrounds.NGLite";
+io_newgrounds_NGLite.getSessionId = function() {
+	var url = window.document.location.href;
+	var index = url.indexOf("?");
+	if(index != -1) {
+		var _g = 0;
+		var _g1 = HxOverrides.substr(url,index + 1,null).split("&");
+		while(_g < _g1.length) {
+			var param = _g1[_g];
+			++_g;
+			index = param.indexOf("=");
+			if(index != -1 && HxOverrides.substr(param,0,index) == "ngio_session_id") {
+				return HxOverrides.substr(param,index + 1,null);
+			}
+		}
+	}
+	return null;
+};
+io_newgrounds_NGLite.prototype = {
+	markCallPending_io_newgrounds_Call_T: function(call) {
+		var _gthis = this;
+		this._pendingCalls.push(call);
+		call.addOutcomeHandler(function(_) {
+			HxOverrides.remove(_gthis._pendingCalls,call);
+			_gthis.checkQueue()
+
+--- location.href occurrence 4 @ 7506961 ---
+ null;
+io_newgrounds_NG.create = function(appId,sessionId,debug,callback) {
+	if(debug == null) {
+		debug = false;
+	}
+	if(appId == null) {
+		appId = "test";
+	}
+	io_newgrounds_NG.core = new io_newgrounds_NG(appId,sessionId,debug,callback);
+	io_newgrounds_NG.onCoreReady.dispatch();
+};
+io_newgrounds_NG.getHost = function() {
+	var url = window.document.location.href;
+	if(url == null || url == "") {
+		return "AppView";
+	}
+	if(url.indexOf("file") == 0 || url.indexOf("127.0.0.1") != -1) {
+		return "LocalHost";
+	}
+	if(io_newgrounds_NG.urlParser.match(url)) {
+		return io_newgrounds_NG.urlParser.matched(1);
+	}
+	return "Unknown";
+};
+io_newgrounds_NG.__super__ = io_newgrounds_NGLite;
+io_newgrounds_NG.prototype = $extend(io_newgrounds_NGLite.prototype,{
+	get_user: function() {
+		if(this._session == null) {
+			return null;
+		}
+		return this._session.user;
+	}
+	,get_passportUrl: function() {
+		if(this._session == null || io_newgrounds_objects_Session.get_status(this._session) != "request-login") {
+			r
+
+location.pathname: 1 occurrence(s)
+--- location.pathname occurrence 1 @ 2202431 ---
+etLocalStorage();
+	if(storage == null) {
+		return null;
+	}
+	var get = function(path) {
+		return storage.getItem(path + ":" + name);
+	};
+	if(localPath != "") {
+		return get(localPath);
+	}
+	var encodedData = get(flixel_util__$FlxSave_FlxSharedObject.getDefaultLocalPath());
+	if(encodedData != null) {
+		return encodedData;
+	}
+	encodedData = get(window.location.pathname);
+	if(encodedData != null) {
+		return encodedData;
+	}
+	return get(window.location.href);
+};
+flixel_util__$FlxSave_FlxSharedObject.__super__ = openfl_net_SharedObject;
+flixel_util__$FlxSave_FlxSharedObject.prototype = $extend(openfl_net_SharedObject.prototype,{
+	__class__: flixel_util__$FlxSave_FlxSharedObject
+});
+var flixel_util_LoadResult = $hxEnums["flixel.util.LoadResult"] = { __ename__:"flixel.util.LoadResult",__constructs__:null
+	,SUCCESS: ($_=function(obj) { return {_hx_index:0,obj:obj,__enum__:"flixel.util.LoadResult",toString:$estr}; },$_._hx_name="SUCCESS",$_.__params__ = ["obj"],$_)
+	,FAILURE: ($_=function(type,obj
+
+new URL(: 1 occurrence(s)
+--- new URL( occurrence 1 @ 1810568 ---
+	}
+	lime__$internal_backend_html5_Message.disablePreserveClasses(this);
+};
+$hxClasses["lime._internal.backend.html5.HTML5Thread"] = lime__$internal_backend_html5_HTML5Thread;
+lime__$internal_backend_html5_HTML5Thread.__name__ = "lime._internal.backend.html5.HTML5Thread";
+lime__$internal_backend_html5_HTML5Thread.create = function(job) {
+	var url = new URL(lime__$internal_backend_html5_HTML5Thread.__current.__href);
+	url.pathname = HxOverrides.substr(url.pathname,0,url.pathname.lastIndexOf("/") + 1) + lime_app_Application.current.meta.h["file"] + ".js";
+	if(url.hash.length > 0) {
+		url.hash += "_";
+	}
+	url.hash += lime__$internal_backend_html5_HTML5Thread.__workerCount;
+	lime__$internal_backend_html5_HTML5Thread.__workerCount++;
+	lime__$internal_backend_html5_WorkFunction.makePortable(job);
+	var thread = new lime__$internal_backend_html5_HTML5Thread(url.href,new Worker(url.href));
+	thread.sendMessage(job);
+	return thread;
+};
+lime__$internal_backend_html5_HTML5Thread.returnMessage = func
+
+lime.embed: 5 occurrence(s)
+--- lime.embed occurrence 1 @ 4024586 ---
+EntryPoint == null) {
+		return;
+	}
+	if(Object.prototype.hasOwnProperty.call(lime_system_System.__applicationEntryPoint.h,projectName)) {
+		var htmlElement = null;
+		if(typeof(element) == "string") {
+			htmlElement = window.document.getElementById(element);
+		} else {
+			htmlElement = element;
+		}
+		if(htmlElement == null) {
+			window.console.log("[lime.embed] ERROR: Cannot find target element: " + Std.string(element));
+			return;
+		}
+		if(width == null) {
+			width = 0;
+		}
+		if(height == null) {
+			height = 0;
+		}
+		if(config == null) {
+			config = { };
+		}
+		if(Object.prototype.hasOwnProperty.call(config,"background") && typeof(config.background) == "string") {
+			var background = StringTools.replace(Std.string(config.background),"#","");
+			if(background.indexOf("0x") > -1) {
+				config.background = Std.parseInt(background);
+			} else {
+				config.background = Std.parseInt("0x" + background);
+			}
+		}
+		config.element = htmlElement;
+		config.width = width;
+		config.height = height;
+	
+
+--- lime.embed occurrence 2 @ 10259501 ---
+self !== "undefined" && self.constructor.name.includes("Worker")) {
+		// No need for exports in a worker context, just initialize statics.
+		$hx_script({}, $global);
+	} else {
+		$hx_exports.lime = $hx_exports.lime || {};
+		$hx_exports.lime.$scripts = $hx_exports.lime.$scripts || {};
+		$hx_exports.lime.$scripts["Funkin"] = $hx_script;
+		$hx_exports.lime.embed = function (projectName) {
+			var exports = {};
+			var script = $hx_exports.lime.$scripts[projectName];
+			if (!script) throw Error("Cannot find project name \"" + projectName + "\"");
+			script(exports, $global);
+			for (var key in exports) $hx_exports[key] = $hx_exports[key] || exports[key];
+			var lime = exports.lime || window.lime;
+			if (lime && lime.embed && this !== lime.embed) lime.embed.apply(lime, arguments);
+			return exports;
+		};
+	}
+
+	if (typeof define === "function" && define.amd) {
+		define([], function () { return $hx_exports.lime; });
+		define.__amd = define.amd;
+		define.amd = null;
+	}
+})
+
+$lime_init(typeof export
+
+--- lime.embed occurrence 3 @ 10259865 ---
+unction (projectName) {
+			var exports = {};
+			var script = $hx_exports.lime.$scripts[projectName];
+			if (!script) throw Error("Cannot find project name \"" + projectName + "\"");
+			script(exports, $global);
+			for (var key in exports) $hx_exports[key] = $hx_exports[key] || exports[key];
+			var lime = exports.lime || window.lime;
+			if (lime && lime.embed && this !== lime.embed) lime.embed.apply(lime, arguments);
+			return exports;
+		};
+	}
+
+	if (typeof define === "function" && define.amd) {
+		define([], function () { return $hx_exports.lime; });
+		define.__amd = define.amd;
+		define.amd = null;
+	}
+})
+
+$lime_init(typeof exports !== "undefined" ? exports : typeof define === "function" && define.amd ? {} : typeof window !== "undefined" ? window : typeof self !== "undefined" ? self : this,
+typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : this);
+
+
+if(typeof self === "undefined" || !self.constructor.name.includes("Worke
+
+--- lime.embed occurrence 4 @ 10259888 ---
+
+			var exports = {};
+			var script = $hx_exports.lime.$scripts[projectName];
+			if (!script) throw Error("Cannot find project name \"" + projectName + "\"");
+			script(exports, $global);
+			for (var key in exports) $hx_exports[key] = $hx_exports[key] || exports[key];
+			var lime = exports.lime || window.lime;
+			if (lime && lime.embed && this !== lime.embed) lime.embed.apply(lime, arguments);
+			return exports;
+		};
+	}
+
+	if (typeof define === "function" && define.amd) {
+		define([], function () { return $hx_exports.lime; });
+		define.__amd = define.amd;
+		define.amd = null;
+	}
+})
+
+$lime_init(typeof exports !== "undefined" ? exports : typeof define === "function" && define.amd ? {} : typeof window !== "undefined" ? window : typeof self !== "undefined" ? self : this,
+typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : this);
+
+
+if(typeof self === "undefined" || !self.constructor.name.includes("Worker")) { /*!
+ *  howler.j
+
+WebGL: 50 occurrence(s)
+--- WebGL occurrence 1 @ 403258 ---
+,initialState: null
+	,skipSplash: null
+	,init: function(event) {
+		if(this.hasEventListener("addedToStage")) {
+			this.removeEventListener("addedToStage",$bind(this,this.init));
+		}
+		var context = this.stage.window.context.type;
+		if(context != "webgl" && context != "opengl" && context != "opengles") {
+			var desc = "Failed to initialize the " + "WebGL" + " rendering context!\n\n";
+			desc += "Make sure your graphics card supports " + ("WebGL" + " 1.0 or newer") + ", your graphics drivers are up to date, and hardware acceleration is enabled on your browser.";
+			funkin_util_WindowUtil.showError("Failed to initialize " + "WebGL",desc);
+			lime_system_System.exit(1);
+		}
+		this.setupGame();
+	}
+	,setupGame: function() {
+		Main.debugDisplay = new funkin_ui_debug_FunkinDebugDisplay(10,10,16777215);
+		flixel_FlxG.signals.postUpdate.add($bind(this,this.handleDebugDisplayKeys));
+		funkin_save_Save.load();
+		funkin_util_WindowUtil.setVSyncMode(funkin_Preferences.get_vsyncMode());
+		flixel_FlxG
+
+--- WebGL occurrence 2 @ 403350 ---
+"addedToStage")) {
+			this.removeEventListener("addedToStage",$bind(this,this.init));
+		}
+		var context = this.stage.window.context.type;
+		if(context != "webgl" && context != "opengl" && context != "opengles") {
+			var desc = "Failed to initialize the " + "WebGL" + " rendering context!\n\n";
+			desc += "Make sure your graphics card supports " + ("WebGL" + " 1.0 or newer") + ", your graphics drivers are up to date, and hardware acceleration is enabled on your browser.";
+			funkin_util_WindowUtil.showError("Failed to initialize " + "WebGL",desc);
+			lime_system_System.exit(1);
+		}
+		this.setupGame();
+	}
+	,setupGame: function() {
+		Main.debugDisplay = new funkin_ui_debug_FunkinDebugDisplay(10,10,16777215);
+		flixel_FlxG.signals.postUpdate.add($bind(this,this.handleDebugDisplayKeys));
+		funkin_save_Save.load();
+		funkin_util_WindowUtil.setVSyncMode(funkin_Preferences.get_vsyncMode());
+		flixel_FlxG.cameras = new funkin_graphics_FunkinCameraFrontEnd();
+		var framerate = funkin_Preferences.
+
+--- WebGL occurrence 3 @ 403538 ---
+context != "opengles") {
+			var desc = "Failed to initialize the " + "WebGL" + " rendering context!\n\n";
+			desc += "Make sure your graphics card supports " + ("WebGL" + " 1.0 or newer") + ", your graphics drivers are up to date, and hardware acceleration is enabled on your browser.";
+			funkin_util_WindowUtil.showError("Failed to initialize " + "WebGL",desc);
+			lime_system_System.exit(1);
+		}
+		this.setupGame();
+	}
+	,setupGame: function() {
+		Main.debugDisplay = new funkin_ui_debug_FunkinDebugDisplay(10,10,16777215);
+		flixel_FlxG.signals.postUpdate.add($bind(this,this.handleDebugDisplayKeys));
+		funkin_save_Save.load();
+		funkin_util_WindowUtil.setVSyncMode(funkin_Preferences.get_vsyncMode());
+		flixel_FlxG.cameras = new funkin_graphics_FunkinCameraFrontEnd();
+		var framerate = funkin_Preferences.get_unlockedFramerate() ? 0 : funkin_Preferences.get_framerate();
+		var game = new flixel_FlxGame(this.gameWidth,this.gameHeight,flixel_util_typeLimit_InitialState.fromType(this.initialSta
+
+--- WebGL occurrence 4 @ 845247 ---
+tureCount,inputData,inputFilter,inputMipFilter,inputWrap);
+				++textureCount;
+			}
+		}
+		var gl = this.__context.gl;
+		if(shaderBuffer.paramDataLength > 0) {
+			if(shaderBuffer.paramDataBuffer == null) {
+				shaderBuffer.paramDataBuffer = gl.createBuffer();
+			}
+			this.__context.__bindGLArrayBuffer(shaderBuffer.paramDataBuffer);
+			lime_graphics_WebGLRenderContext.bufferData(gl,gl.ARRAY_BUFFER,shaderBuffer.paramData,gl.DYNAMIC_DRAW);
+		} else {
+			this.__context.__bindGLArrayBuffer(null);
+		}
+		var boolIndex = 0;
+		var floatIndex = 0;
+		var intIndex = 0;
+		var boolCount = shaderBuffer.paramBoolCount;
+		var floatCount = shaderBuffer.paramFloatCount;
+		var paramData = shaderBuffer.paramData;
+		var boolRef;
+		var floatRef;
+		var intRef;
+		var hasOverride;
+		var overrideBoolValue = null;
+		var overrideFloatValue = null;
+		var overrideIntValue = null;
+		var _g = 0;
+		var _g1 = shaderBuffer.paramCount;
+		while(_g < _g1) {
+			var i = _g++;
+			hasOverride = false;
+			if(i < boolCount) {
+				
+
+webgl: 34 occurrence(s)
+--- webgl occurrence 1 @ 403155 ---
+prite;
+Main.prototype = $extend(openfl_display_Sprite.prototype,{
+	gameWidth: null
+	,gameHeight: null
+	,initialState: null
+	,skipSplash: null
+	,init: function(event) {
+		if(this.hasEventListener("addedToStage")) {
+			this.removeEventListener("addedToStage",$bind(this,this.init));
+		}
+		var context = this.stage.window.context.type;
+		if(context != "webgl" && context != "opengl" && context != "opengles") {
+			var desc = "Failed to initialize the " + "WebGL" + " rendering context!\n\n";
+			desc += "Make sure your graphics card supports " + ("WebGL" + " 1.0 or newer") + ", your graphics drivers are up to date, and hardware acceleration is enabled on your browser.";
+			funkin_util_WindowUtil.showError("Failed to initialize " + "WebGL",desc);
+			lime_system_System.exit(1);
+		}
+		this.setupGame();
+	}
+	,setupGame: function() {
+		Main.debugDisplay = new funkin_ui_debug_FunkinDebugDisplay(10,10,16777215);
+		flixel_FlxG.signals.postUpdate.add($bind(this,this.handleDebugDisplayKeys));
+		funkin_sav
+
+--- webgl occurrence 2 @ 920757 ---
+ixel_FlxG.plugins = new flixel_system_frontEnds_PluginFrontEnd();
+	flixel_FlxG.vcr = new flixel_system_frontEnds_VCRFrontEnd();
+	flixel_FlxG.sound = new flixel_system_frontEnds_SoundFrontEnd();
+};
+flixel_FlxG.initRenderMethod = function() {
+	var tmp;
+	switch(openfl_Lib.get_current().stage.window.context.type) {
+	case "opengl":case "opengles":case "webgl":
+		tmp = flixel_FlxRenderMethod.DRAW_TILES;
+		break;
+	default:
+		tmp = flixel_FlxRenderMethod.BLITTING;
+	}
+	flixel_FlxG.renderMethod = tmp;
+	flixel_FlxG.renderBlit = flixel_FlxG.renderMethod == flixel_FlxRenderMethod.BLITTING;
+	flixel_FlxG.renderTile = flixel_FlxG.renderMethod == flixel_FlxRenderMethod.DRAW_TILES;
+	flixel_FlxObject.defaultPixelPerfectPosition = flixel_FlxG.renderBlit;
+};
+flixel_FlxG.initSave = function() {
+	if(flixel_FlxG.save.status._hx_index == 1) {
+		return;
+	}
+	var name = openfl_Lib.get_current().stage.application.meta.h["file"];
+	flixel_FlxG.save.bind(flixel_util_FlxSave.validate(name));
+	if(flixel_FlxG.save.isEmp
+
+--- webgl occurrence 3 @ 4331871 ---
+__renderTransform.ty -= textField.__offsetY;
+			}
+		}
+		return updated;
+	}
+	,__class__: openfl_display_DisplayObjectRenderer
+});
+var openfl_display_OpenGLRenderer = function(context,defaultRenderTarget) {
+	openfl_display_DisplayObjectRenderer.call(this);
+	this.__context3D = context;
+	this.__context = context.__context;
+	this.gl = context.__context.webgl;
+	this.__gl = this.gl;
+	this.__defaultRenderTarget = defaultRenderTarget;
+	this.__flipped = this.__defaultRenderTarget == null;
+	if(openfl_display_Graphics.maxTextureWidth == null) {
+		openfl_display_Graphics.maxTextureWidth = openfl_display_Graphics.maxTextureHeight = this.__gl.getParameter(this.__gl.MAX_TEXTURE_SIZE);
+	}
+	this.__matrix = lime_math_Matrix4._new();
+	this.__values = [];
+	var exts = this.__gl.getSupportedExtensions();
+	if(this.__context.type == "opengles") {
+		if(openfl_display_OpenGLRenderer.__sRGBWriteControlSupported == null) {
+			openfl_display_OpenGLRenderer.__sRGBWriteControlSupported = exts.indexOf("EXT_sRGB_write_
+
+--- webgl occurrence 4 @ 7990144 ---
+is,this.handleTouchEvent),true);
+		element.addEventListener("touchcancel",$bind(this,this.handleTouchEvent),true);
+		element.addEventListener("gamepadconnected",$bind(this,this.handleGamepadEvent),true);
+		element.addEventListener("gamepaddisconnected",$bind(this,this.handleGamepadEvent),true);
+	}
+	this.createContext();
+	if(parent.context.type == "webgl") {
+		this.canvas.addEventListener("webglcontextlost",$bind(this,this.handleContextEvent),false);
+		this.canvas.addEventListener("webglcontextrestored",$bind(this,this.handleContextEvent),false);
+	}
+};
+$hxClasses["lime._internal.backend.html5.HTML5Window"] = lime__$internal_backend_html5_HTML5Window;
+lime__$internal_backend_html5_HTML5Window.__name__ = "lime._internal.backend.html5.HTML5Window";
+lime__$internal_backend_html5_HTML5Window.textArea = null;
+lime__$internal_backend_html5_HTML5Window.textInput = null;
+lime__$internal_backend_html5_HTML5Window.prototype = {
+	canvas: null
+	,cacheElementHeight: null
+	,cacheElementWidth: null
+	,c
+
+assets/: 36 occurrence(s)
+--- assets/ occurrence 1 @ 2271385 ---
+{
+	var parts = path.split(":");
+	if(parts.length < 2) {
+		return "preload";
+	}
+	return parts[0];
+};
+funkin_Paths.getPath = function(file,type,library) {
+	if(library != null) {
+		return funkin_Paths.getLibraryPath(file,library);
+	}
+	if(funkin_Paths.currentLevel != null) {
+		var library = funkin_Paths.currentLevel;
+		var levelPath = "" + library + ":assets/" + library + "/" + file;
+		if(funkin_Assets.exists(levelPath,type)) {
+			return levelPath;
+		}
+	}
+	var levelPath = "shared" + ":assets/" + "shared" + "/" + file;
+	if(funkin_Assets.exists(levelPath,type)) {
+		return levelPath;
+	}
+	return "assets/" + file;
+};
+funkin_Paths.getLibraryPath = function(file,library) {
+	if(library == null) {
+		library = "preload";
+	}
+	if(library == "preload" || library == "default") {
+		return "assets/" + file;
+	} else {
+		return "" + library + ":assets/" + library + "/" + file;
+	}
+};
+funkin_Paths.file = function(file,type,library) {
+	if(type == null) {
+		type = "TEXT";
+	}
+	return funkin_Paths.getPath(file,ty
+
+--- assets/ occurrence 2 @ 2271521 ---
+,type,library) {
+	if(library != null) {
+		return funkin_Paths.getLibraryPath(file,library);
+	}
+	if(funkin_Paths.currentLevel != null) {
+		var library = funkin_Paths.currentLevel;
+		var levelPath = "" + library + ":assets/" + library + "/" + file;
+		if(funkin_Assets.exists(levelPath,type)) {
+			return levelPath;
+		}
+	}
+	var levelPath = "shared" + ":assets/" + "shared" + "/" + file;
+	if(funkin_Assets.exists(levelPath,type)) {
+		return levelPath;
+	}
+	return "assets/" + file;
+};
+funkin_Paths.getLibraryPath = function(file,library) {
+	if(library == null) {
+		library = "preload";
+	}
+	if(library == "preload" || library == "default") {
+		return "assets/" + file;
+	} else {
+		return "" + library + ":assets/" + library + "/" + file;
+	}
+};
+funkin_Paths.file = function(file,type,library) {
+	if(type == null) {
+		type = "TEXT";
+	}
+	return funkin_Paths.getPath(file,type,library);
+};
+funkin_Paths.animateAtlas = function(path,library) {
+	return funkin_Paths.getLibraryPath("images/" + path,library);
+};
+f
+
+--- assets/ occurrence 3 @ 2271631 ---
+s.currentLevel != null) {
+		var library = funkin_Paths.currentLevel;
+		var levelPath = "" + library + ":assets/" + library + "/" + file;
+		if(funkin_Assets.exists(levelPath,type)) {
+			return levelPath;
+		}
+	}
+	var levelPath = "shared" + ":assets/" + "shared" + "/" + file;
+	if(funkin_Assets.exists(levelPath,type)) {
+		return levelPath;
+	}
+	return "assets/" + file;
+};
+funkin_Paths.getLibraryPath = function(file,library) {
+	if(library == null) {
+		library = "preload";
+	}
+	if(library == "preload" || library == "default") {
+		return "assets/" + file;
+	} else {
+		return "" + library + ":assets/" + library + "/" + file;
+	}
+};
+funkin_Paths.file = function(file,type,library) {
+	if(type == null) {
+		type = "TEXT";
+	}
+	return funkin_Paths.getPath(file,type,library);
+};
+funkin_Paths.animateAtlas = function(path,library) {
+	return funkin_Paths.getLibraryPath("images/" + path,library);
+};
+funkin_Paths.txt = function(key,library) {
+	return funkin_Paths.getPath("data/" + key + ".txt","TEXT",library);
+
+--- assets/ occurrence 4 @ 2271817 ---
+eturn levelPath;
+		}
+	}
+	var levelPath = "shared" + ":assets/" + "shared" + "/" + file;
+	if(funkin_Assets.exists(levelPath,type)) {
+		return levelPath;
+	}
+	return "assets/" + file;
+};
+funkin_Paths.getLibraryPath = function(file,library) {
+	if(library == null) {
+		library = "preload";
+	}
+	if(library == "preload" || library == "default") {
+		return "assets/" + file;
+	} else {
+		return "" + library + ":assets/" + library + "/" + file;
+	}
+};
+funkin_Paths.file = function(file,type,library) {
+	if(type == null) {
+		type = "TEXT";
+	}
+	return funkin_Paths.getPath(file,type,library);
+};
+funkin_Paths.animateAtlas = function(path,library) {
+	return funkin_Paths.getLibraryPath("images/" + path,library);
+};
+funkin_Paths.txt = function(key,library) {
+	return funkin_Paths.getPath("data/" + key + ".txt","TEXT",library);
+};
+funkin_Paths.frag = function(key,library) {
+	return funkin_Paths.getPath("shaders/" + key + ".frag","TEXT",library);
+};
+funkin_Paths.json = function(key,library) {
+	return funkin_Pat
+
+Funkin.js: 0 occurrence(s)
+XMLHttpRequest: 3 occurrence(s)
+--- XMLHttpRequest occurrence 1 @ 7979302 ---
+lime__$internal_backend_html5_HTML5HTTPRequest.__revokeBlobURI(uri,options);
+			lime__$internal_backend_html5_HTML5HTTPRequest.activeRequests--;
+			lime__$internal_backend_html5_HTML5HTTPRequest.processQueue();
+			promise.error(new lime_net__$HTTPRequestErrorResponse(event.detail,null));
+		},false);
+		image.src = uri;
+	} else {
+		var request = new XMLHttpRequest();
+		request.onload = function(_) {
+			lime__$internal_backend_html5_HTML5HTTPRequest.activeRequests--;
+			lime__$internal_backend_html5_HTML5HTTPRequest.processQueue();
+			var img = new lime_graphics_Image();
+			img.__fromBytes(haxe_io_Bytes.ofData(request.response),function(img) {
+				promise.complete(img);
+			});
+		};
+		request.onerror = function(event) {
+			promise.error(new lime_net__$HTTPRequestErrorResponse(event.message,null));
+		};
+		request.onprogress = function(event) {
+			if(event.lengthComputable) {
+				promise.progress(event.loaded,event.total);
+			}
+		};
+		request.open("GET",uri,true);
+		request.responseType = "a
+
+--- XMLHttpRequest occurrence 2 @ 7980439 ---
+HTML5HTTPRequest.__revokeBlobURI = function(uri,options) {
+	if((options & 1) != 0) {
+		URL.revokeObjectURL(uri);
+	}
+};
+lime__$internal_backend_html5_HTML5HTTPRequest.prototype = {
+	binary: null
+	,parent: null
+	,request: null
+	,init: function(parent) {
+		this.parent = parent;
+	}
+	,load: function(uri,progress,readyStateChange) {
+		this.request = new XMLHttpRequest();
+		if(this.parent.method == "POST") {
+			if(this.request.upload != null) {
+				this.request.upload.addEventListener("progress",progress,false);
+			}
+		} else {
+			this.request.addEventListener("progress",progress,false);
+		}
+		this.request.onreadystatechange = readyStateChange;
+		var query = "";
+		if(this.parent.data == null) {
+			var key_keys = Object.keys(this.parent.formData.h);
+			var key_length = key_keys.length;
+			var key_current = 0;
+			while(key_current < key_length) {
+				var key = key_keys[key_current++];
+				if(query.length > 0) {
+					query += "&";
+				}
+				var value = this.parent.formData.h[key];
+				if(key.ind
+
+--- XMLHttpRequest occurrence 3 @ 10339645 ---
+out XHR, since some browsers don't support it.
+      var data = atob(url.split(',')[1]);
+      var dataView = new Uint8Array(data.length);
+      for (var i=0; i<data.length; ++i) {
+        dataView[i] = data.charCodeAt(i);
+      }
+
+      decodeAudioData(dataView.buffer, self);
+    } else {
+      // Load the buffer from the URL.
+      var xhr = new XMLHttpRequest();
+      xhr.open(self._xhr.method, url, true);
+      xhr.withCredentials = self._xhr.withCredentials;
+      xhr.responseType = 'arraybuffer';
+
+      // Apply any custom headers to the request.
+      if (self._xhr.headers) {
+        Object.keys(self._xhr.headers).forEach(function(key) {
+          xhr.setRequestHeader(key, self._xhr.headers[key]);
+        });
+      }
+
+      xhr.onload = function() {
+        // Make sure we get a successful response back.
+        var code = (xhr.status + '')[0];
+        if (code !== '0' && code !== '2' && code !== '3') {
+          self._emit('loaderror', null, 'Failed loading audio file with stat
